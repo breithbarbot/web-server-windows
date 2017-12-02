@@ -48,6 +48,7 @@ Thumbs.db
 !/sendmail/.gitkeep
 /phpmyadmin/*
 !/phpmyadmin/.gitkeep
+/var/*
 !/var/**/.gitkeep
 /www/*
 !/www/robots.txt
