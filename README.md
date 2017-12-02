@@ -1,12 +1,13 @@
-# Server web for windows
+# Server Web for Windows
 
 A simple server web for windows with PHP, Nginx, MariaDB and phpMyAdmin.
 
-- PHP
+- PHP (Recommanded PHP 7.2)
 	- cURL
 	- OPCache
 	- APCu
 	- Sendmail
+	- Composer
 - Nginx
 - MariaDB
 - phpMyAdmin
@@ -25,7 +26,7 @@ git clone https://gitlab.com/breithbarbot/server-web-windows.git server\
 
 ## Download
 - Download the source files and extract to the each respective folder
-	- **C:\server\php** : [PHP (x64 Thread Safe)](http://windows.php.net/download)
+	- **C:\server\php** : [[Recommanded PHP 7.2] PHP (x64 Thread Safe)](http://windows.php.net/download)
 		- The VC15 builds require to have the Visual C++ Redistributable for Visual Studio 2017 [x64](https://go.microsoft.com/fwlink/?LinkId=746572)
 	- **C:\server\nginx** : [Nginx](http://nginx.org/en/download.html)
 	- **C:\server\mysql** : [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
@@ -107,6 +108,11 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	- `sendmail_path = "\"C:\server\sendmail\sendmail.exe\" -t"`
 - Edit file : `C:\server\sendmail\sendmail.ini`
 
+#### Composer
+
+- Download and install : https://getcomposer.org/download/
+	- The default installation folder is : **C:\ProgramData\ComposerSetup\bin**
+
 <br>
 
 ### Nginx
@@ -139,24 +145,24 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		  ```
 
 		```ini
-		location ~ /\.ht {
-	        deny  all;
-	    }
+        location ~ /\.ht {
+            deny  all;
+        }
 		```
 
 	- Edit **nginx.conf** for *symfony* (C:\server\nginx\conf\nginx.conf) :
 		
 		```ini
-		# SYMFONY
-		location ~ /(app|app_dev|config)\.php(/|$) {
+        # SYMFONY
+        location ~ /(app|app_dev|config)\.php(/|$) {
             root           c:/server/www;
             fastcgi_pass   127.0.0.1:9000;
-			fastcgi_split_path_info ^(.+\.php)(/.*)$;
-			include fastcgi_params;
- 
-			fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-			fastcgi_param DOCUMENT_ROOT $realpath_root;
-		}
+            fastcgi_split_path_info ^(.+\.php)(/.*)$;
+            include fastcgi_params;
+            
+            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            fastcgi_param DOCUMENT_ROOT $realpath_root;
+        }
 		```
 
 <br>
