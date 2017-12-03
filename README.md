@@ -326,3 +326,15 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
     cd C:\server
     git pull
     ```
+
+<br>
+
+## Uninstall
+
+1. Backup your DB(s) and project(s)
+2. Kill all services
+3 Remove entry your PATH system variable :
+    - C:\server\mysql\bin
+    - C:\server\nginx
+    - C:\server\php
+4. Restart your system.
