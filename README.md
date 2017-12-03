@@ -11,7 +11,7 @@ A simple server web for windows with PHP, Nginx, MariaDB and phpMyAdmin.
 - Nginx
 - MariaDB
 - phpMyAdmin
-	- With config for user control
+	- With config for *phpMyAdmin configuration storage*
 
 <br>
 
@@ -63,6 +63,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	- `extension=fileinfo`
 	- `extension=intl`
 	- `extension=mbstring`
+	- `extension=exif`
 	- `extension=openssl`
 	- `date.timezone = Europe/Paris`
 	- `session.save_path = "C:\server\var\tmp"`
@@ -111,7 +112,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 #### Composer
 
 - Download and install : https://getcomposer.org/download/
-	- The default installation folder is : **C:\ProgramData\ComposerSetup\bin**
+	- The default installation folder/file is : **C:\ProgramData\ComposerSetup\bin\composer.phar**
 
 <br>
 
@@ -124,8 +125,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		- `gzip  on;`
 		- `error_log  C:\server\var\log\/nginx\error.log;`
 		- `pid        C:\server\var\log\/nginx/\\nginx.pid;`
-		- `access_log  C:\server\var\log\/nginx\access.log  main;`
-		- `access_log  C:\server\var\log\/nginx\localhost.access.log  main;`
+		- `access_log  C:\server\var\log\/nginx\access.log;`
+		- (in server) `access_log  C:\server\var\log\/nginx\localhost.access.log;`
 
 		```ini
         location / {
@@ -184,11 +185,28 @@ Execute : `cp C:\server\mysql\my-huge.ini C:\server\mysql\bin\my.ini`
 	- login : **root**
 	- password : *null*
 
+- Set password or null/empty password ?
+	1. Start *mysql* server in safe mode.
+		- *C:\server\bin\start-mysql-safe-mode.bat*
+	2. Run commands
+		- For set **null / empty** password : `UPDATE user SET password = '' WHERE User = 'root';`
+		
+		```bash
+		mysql -u root -p
+
+		MariaDB [(none)]> USE mysql;
+		MariaDB [(none)]> UPDATE user SET `password` = PASSWORD('YOUR_PASSWORD') WHERE `User` = 'root';
+		MariaDB [(none)]> FLUSH PRIVILEGES;
+		MariaDB [(none)]> quit;
+		```
+	3. Stop ant restart *mysql*.
+
 <br>
 
 ### phpMyAdmin
 
-- Execute (only with **cmd** in **Administrator**) : `mklink /D C:\server\www\phpmyadmin C:\server\phpmyadmin`
+- Creation of a symbolic link
+	- Execute (only with **cmd** in **Administrator**) : `mklink /D C:\server\www\phpmyadmin C:\server\phpmyadmin`
 
 #### Configuration (Automatique)
 
@@ -200,64 +218,66 @@ Execute : `cp C:\server\mysql\my-huge.ini C:\server\mysql\bin\my.ini`
 	- Change your **blowfish_secret** : [phpMyAdmin Blowfish Secret Generator](https://www.question-defense.com/tools/phpmyadmin-blowfish-secret-generator)
 	- `mkdir C:\server\phpmyadmin\import`
 	- `mkdir C:\server\phpmyadmin\save`
-	- Example *config.inc.php* (Change password to *controlpass*) :
+	- Example *config.inc.php* :
 
-	```php
-	<?php
+		```php
+		<?php
 
-	/* Servers configuration */
-	$i = 0;
+		/* Servers configuration */
+		$i = 0;
 
-	/* Server: localhost */
-	$i++;
-	$cfg['Servers'][$i]['hide_db'] = 'information_schema|mysql|performance_schema|phpmyadmin';
-	$cfg['Servers'][$i]['verbose'] = '';
-	$cfg['Servers'][$i]['host'] = 'localhost';
-	$cfg['Servers'][$i]['port'] = '';
-	$cfg['Servers'][$i]['socket'] = '';
-	$cfg['Servers'][$i]['auth_type'] = 'cookie';
-	$cfg['Servers'][$i]['user'] = 'root';
-	$cfg['Servers'][$i]['password'] = '';
-	$cfg['Servers'][$i]['AllowNoPassword'] = true;
-	$cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
-	$cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
-	$cfg['Servers'][$i]['relation'] = 'pma__relation';
-	$cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
-	$cfg['Servers'][$i]['users'] = 'pma__users';
-	$cfg['Servers'][$i]['usergroups'] = 'pma__usergroups';
-	$cfg['Servers'][$i]['navigationhiding'] = 'pma__navigationhiding';
-	$cfg['Servers'][$i]['table_info'] = 'pma__table_info';
-	$cfg['Servers'][$i]['column_info'] = 'pma__column_info';
-	$cfg['Servers'][$i]['history'] = 'pma__history';
-	$cfg['Servers'][$i]['recent'] = 'pma__recent';
-	$cfg['Servers'][$i]['favorite'] = 'pma__favorite';
-	$cfg['Servers'][$i]['table_uiprefs'] = 'pma__table_uiprefs';
-	$cfg['Servers'][$i]['tracking'] = 'pma__tracking';
-	$cfg['Servers'][$i]['table_coords'] = 'pma__table_coords';
-	$cfg['Servers'][$i]['pdf_pages'] = 'pma__pdf_pages';
-	$cfg['Servers'][$i]['savedsearches'] = 'pma__savedsearches';
-	$cfg['Servers'][$i]['central_columns'] = 'pma__central_columns';
-	$cfg['Servers'][$i]['designer_settings'] = 'pma__designer_settings';
-	$cfg['Servers'][$i]['export_templates'] = 'pma__export_templates';
-	$cfg['Servers'][$i]['controluser'] = 'phpmyadmin';
-	$cfg['Servers'][$i]['controlpass'] = '5_5v0lo73EAT2Wx';
+		/* Server: localhost */
+		$i++;
+		$cfg['Servers'][$i]['hide_db'] = 'information_schema|mysql|performance_schema|phpmyadmin';
+		$cfg['Servers'][$i]['verbose'] = '';
+		$cfg['Servers'][$i]['host'] = 'localhost';
+		$cfg['Servers'][$i]['port'] = '';
+		$cfg['Servers'][$i]['socket'] = '';
+		$cfg['Servers'][$i]['auth_type'] = 'config';
+		$cfg['Servers'][$i]['user'] = 'root';
+		$cfg['Servers'][$i]['password'] = '';
+		$cfg['Servers'][$i]['AllowNoPassword'] = true;
+		$cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
+		$cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
+		$cfg['Servers'][$i]['relation'] = 'pma__relation';
+		$cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
+		$cfg['Servers'][$i]['users'] = 'pma__users';
+		$cfg['Servers'][$i]['usergroups'] = 'pma__usergroups';
+		$cfg['Servers'][$i]['navigationhiding'] = 'pma__navigationhiding';
+		$cfg['Servers'][$i]['table_info'] = 'pma__table_info';
+		$cfg['Servers'][$i]['column_info'] = 'pma__column_info';
+		$cfg['Servers'][$i]['history'] = 'pma__history';
+		$cfg['Servers'][$i]['recent'] = 'pma__recent';
+		$cfg['Servers'][$i]['favorite'] = 'pma__favorite';
+		$cfg['Servers'][$i]['table_uiprefs'] = 'pma__table_uiprefs';
+		$cfg['Servers'][$i]['tracking'] = 'pma__tracking';
+		$cfg['Servers'][$i]['table_coords'] = 'pma__table_coords';
+		$cfg['Servers'][$i]['pdf_pages'] = 'pma__pdf_pages';
+		$cfg['Servers'][$i]['savedsearches'] = 'pma__savedsearches';
+		$cfg['Servers'][$i]['central_columns'] = 'pma__central_columns';
+		$cfg['Servers'][$i]['designer_settings'] = 'pma__designer_settings';
+		$cfg['Servers'][$i]['export_templates'] = 'pma__export_templates';
+		$cfg['Servers'][$i]['controluser'] = 'phpmyadmin';
+		$cfg['Servers'][$i]['controlpass'] = 'YOUR_PASSWORD';
 
-	/* End of servers configuration */
+		/* End of servers configuration */
 
-	$cfg['blowfish_secret'] = '`CCYKmuMJiLNDD>C1sVMzt3x^c^(3WD^';
-	$cfg['DefaultLang'] = 'fr';
-	$cfg['ServerDefault'] = 1;
-	$cfg['ShowPhpInfo'] = true;
-	$cfg['ShowDbStructureCharset'] = true;
-	$cfg['MaxRows'] = 50;
-	$cfg['Import']['charset'] = 'utf-8';
-	$cfg['Export']['compression'] = 'zip';
-	$cfg['Export']['charset'] = 'utf-8';
-	$cfg['UploadDir'] = 'import';
-	$cfg['SaveDir'] = 'save';
-	?>
-	```
-	- Create user/pssw for user control
+		$cfg['blowfish_secret'] = '`CCYKmuMJiLNDD>C1sVMzt3x^c^(3WD^';
+		$cfg['DefaultLang'] = 'fr';
+		$cfg['ShowPhpInfo'] = true;
+		$cfg['ShowDbStructureCharset'] = true;
+		$cfg['MaxRows'] = 50;
+		$cfg['Import']['charset'] = 'utf-8';
+		$cfg['Export']['compression'] = 'zip';
+		$cfg['Export']['charset'] = 'utf-8';
+		$cfg['UploadDir'] = 'import';
+		$cfg['SaveDir'] = 'save';
+		?>
+		```
+	
+	- Create user/password for **phpMyAdmin configuration storage**
+		- Change user to *controluser* variable
+		- Change password to *controlpass* variable
 	- Delete DB (optional) : test
 
 <br>
