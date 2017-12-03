@@ -1,4 +1,10 @@
 @ECHO OFF
 ECHO Starting PHP FastCGI...
 cd "C:\server\php"
-C:\server\bin\RunHiddenConsole.exe php-cgi.exe -b 127.0.0.1:9000
+set prg=php-cgi.exe
+QPROCESS "%prg%">NUL
+IF %errorlevel% GTR 0 (
+	C:\server\bin\RunHiddenConsole.exe %prg% -b 127.0.0.1:9000
+) else (
+	echo "Process (%prg%) already starting..."
+)
