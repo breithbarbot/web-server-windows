@@ -1,5 +1,5 @@
 @ECHO OFF
 ECHO Stoping MySQL...
 cd "C:\server\mysql\bin"
-:: start mysqld.exe -q
-taskkill /f /IM mysqld.exe
+:: https://dev.mysql.com/doc/refman/5.7/en/windows-start-command-line.html
+mysqladmin.exe -u root shutdown

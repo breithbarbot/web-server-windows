@@ -1,4 +1,4 @@
 @ECHO OFF
-ECHO Stoping NGINX...
-cd "C:\server\nginx"
+ECHO Stoping PHP FastCGI...
+cd "C:\server\php"
 taskkill /f /IM php-cgi.exe
