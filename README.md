@@ -82,7 +82,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 	```ini
 	[opcache]
-	zend_extension = "C:\server\php\ext\php_opcache.dll"
+	zend_extension=opcache
 	opcache.enable=1
 	opcache.enable_cli=1
 	opcache.error_log = "C:\server\var\log\php_opcache_errors.log"
@@ -96,7 +96,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 	```ini
 	[apcu]
-	extension = "C:\server\php\ext\php_apcu.dll"
+	extension=apcu
 	apc.enabled=1
 	apc.enable_cli=1
 	apc.shm_size=64M
@@ -173,9 +173,18 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 Execute : `cp C:\server\mysql\my-huge.ini C:\server\mysql\bin\my.ini`
 
 - Edit **my.ini** (C:\server\mysql\bin\my.ini) :
-	- `socket		= C:\server\var\log\mysql\mysql.sock`
-	- `socket		= C:\server\var\log\mysql\mysql.sock`
-	- `tmpdir		= C:\server\var\tmp\`
+	- `socket		= C:\\server\\var\\log\\mysql\\mysql.sock`
+	- `socket		= C:\\server\\var\\log\\mysql\\mysql.sock`
+	- `tmpdir		= C:\\server\\var\\tmp\\`
+	- `innodb_data_home_dir = C:\\server\\mysql\\data\\`
+	- `innodb_data_file_path = ibdata1:2000M;ibdata2:10M:autoextend`
+	- `innodb_log_group_home_dir = C:\\server\\mysql\\data\\`
+	- `innodb_buffer_pool_size = 384M`
+	- `innodb_additional_mem_pool_size = 20M`
+	- `innodb_log_file_size = 100M`
+	- `innodb_log_buffer_size = 8M`
+	- `innodb_flush_log_at_trx_commit = 1`
+	- `innodb_lock_wait_timeout = 50`
 
 - Edit **php.ini** (C:\server\php\php.ini) :
 	- `extension=mysqli`
@@ -263,7 +272,7 @@ Execute : `cp C:\server\mysql\my-huge.ini C:\server\mysql\bin\my.ini`
 		/* End of servers configuration */
 
 		$cfg['blowfish_secret'] = '`CCYKmuMJiLNDD>C1sVMzt3x^c^(3WD^';
-		$cfg['DefaultLang'] = 'fr';
+		$cfg['DefaultLang'] = 'en';
 		$cfg['ShowPhpInfo'] = true;
 		$cfg['ShowDbStructureCharset'] = true;
 		$cfg['MaxRows'] = 50;
@@ -286,3 +295,14 @@ Execute : `cp C:\server\mysql\my-huge.ini C:\server\mysql\bin\my.ini`
 
 - Start : `C:\server\_start.bat`
 - Stop : `C:\server\_stop.bat`
+
+<br>
+
+## For future update ?
+
+- Just run :
+    
+    ```bash
+    cd C:\server
+    git pull
+    ```
