@@ -1,6 +1,7 @@
 # Server Web for Windows
+> A simple server web for windows with PHP, Nginx, MariaDB and phpMyAdmin.
 
-A simple server web for windows with PHP, Nginx, MariaDB and phpMyAdmin.
+<br>
 
 - PHP (Recommanded PHP 7.2)
 	- cURL
@@ -170,21 +171,40 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
 ### MariaDB
 
-Execute : `cp C:\server\mysql\my-huge.ini C:\server\mysql\bin\my.ini`
+- Execute :
+	- `cp C:\server\mysql\my-huge.ini C:\server\mysql\bin\my.ini`
+	- `rm C:\server\mysql\data\ib_buffer_pool`
+	- `rm C:\server\mysql\data\ib_logfile0`
+	- `rm C:\server\mysql\data\ib_logfile1`
+	- `rm C:\server\mysql\data\ibdata1`
 
 - Edit **my.ini** (C:\server\mysql\bin\my.ini) :
-	- `socket		= C:\\server\\var\\log\\mysql\\mysql.sock`
-	- `socket		= C:\\server\\var\\log\\mysql\\mysql.sock`
-	- `tmpdir		= C:\\server\\var\\tmp\\`
-	- `innodb_data_home_dir = C:\\server\\mysql\\data\\`
-	- `innodb_data_file_path = ibdata1:2000M;ibdata2:10M:autoextend`
-	- `innodb_log_group_home_dir = C:\\server\\mysql\\data\\`
-	- `innodb_buffer_pool_size = 384M`
-	- `innodb_additional_mem_pool_size = 20M`
-	- `innodb_log_file_size = 100M`
-	- `innodb_log_buffer_size = 8M`
-	- `innodb_flush_log_at_trx_commit = 1`
-	- `innodb_lock_wait_timeout = 50`
+
+	```ini
+	[client]
+	socket		= C:/server/var/tmp/mysql.sock
+
+	[mysqld]
+	
+	socket		= C:/server/var/tmp/mysql.sock
+	
+	# Point the following paths to a dedicated disk
+	tmpdir		= C:/server/var/tmp/
+	
+	# Uncomment the following if you are using InnoDB tables
+	innodb_data_home_dir = C:/server/mysql/data/
+	innodb_data_file_path = ibdata1:250M;ibdata2:10M:autoextend
+	innodb_log_group_home_dir = C:/server/mysql/data/
+	# You can set .._buffer_pool_size up to 50 - 80 %
+	# of RAM but beware of setting memory usage too high
+	innodb_buffer_pool_size = 384M
+	#innodb_additional_mem_pool_size = 20M
+	# Set .._log_file_size to 25 % of buffer pool size
+	innodb_log_file_size = 50M
+	innodb_log_buffer_size = 8M
+	innodb_flush_log_at_trx_commit = 1
+	innodb_lock_wait_timeout = 50
+	```
 
 - Edit **php.ini** (C:\server\php\php.ini) :
 	- `extension=mysqli`
