@@ -19,7 +19,7 @@
 ## Getting
 
 ```bash
-cd \
+cd C:\
 git clone https://gitlab.com/breithbarbot/server-web-windows.git server\
 ```
 
@@ -28,7 +28,7 @@ git clone https://gitlab.com/breithbarbot/server-web-windows.git server\
 ## Download
 - Download the source files and extract to the each respective folder
 	- **C:\server\php** : [[Recommanded PHP 7.2] PHP (x64 Thread Safe)](http://windows.php.net/download)
-		- The VC15 builds require to have the Visual C++ Redistributable for Visual Studio 2017 [x64](https://go.microsoft.com/fwlink/?LinkId=746572)
+		- The VC15 builds require to have the Visual C++ Redistributable for [Visual Studio 2017 x64](https://go.microsoft.com/fwlink/?LinkId=746572)
 	- **C:\server\nginx** : [Nginx](http://nginx.org/en/download.html)
 	- **C:\server\mysql** : [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
 	- **C:\server\phpmyadmin** : [phpMyAdmin](https://www.phpmyadmin.net/downloads)
@@ -52,8 +52,6 @@ Restart your system.
 
 Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
-[List of Supported Timezones](https://secure.php.net/manual/en/timezones.php)
-
 - Edit **php.ini** (C:\server\php\php.ini) :
 	- `error_log = "C:\server\var\log\php_errors.log"`
 	- `include_path = ".;C:\server\php\pear"`
@@ -66,7 +64,9 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	- `extension=mbstring`
 	- `extension=exif`
 	- `extension=openssl`
-	- `date.timezone = Europe/Paris`
+	- `date.timezone = Europe/Paris` ([List of Supported Timezones](https://secure.php.net/manual/en/timezones.php))
+	- `mysqlnd.collect_statistics = Off`
+	- `mysqlnd.collect_memory_statistics = Off`
 	- `session.save_path = "C:\server\var\tmp"`
 	- `soap.wsdl_cache_dir = "C:\server\var\tmp"`
 
@@ -114,6 +114,8 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 - Download and install : https://getcomposer.org/download/
 	- The default installation folder/file is : **C:\ProgramData\ComposerSetup\bin\composer.phar**
+	- If you have this error during install : **Signature mismatch, could not verify the phar file integrity**
+		- Comment temporarily : `zend_extension=opcache` in *C:\server\php\php.ini*, run Composer install and after, uncomment.
 
 <br>
 
