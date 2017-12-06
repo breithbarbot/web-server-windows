@@ -124,38 +124,48 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.original`
 
 - Edit nginx files in : "C:\server\nginx"
+    - [Core functionality](http://nginx.org/en/docs/ngx_core_module.html)
 	- Edit **nginx.conf** (C:\server\nginx\conf\nginx.conf) :
-		- `gzip  on;`
-		- `error_log  C:\server\var\log\/nginx\error.log;`
-		- `pid        C:\server\var\log\/nginx/\\nginx.pid;`
-		- `access_log  C:\server\var\log\/nginx\access.log;`
-		- (in server) `access_log  C:\server\var\log\/nginx\localhost.access.log;`
 
-		```ini
-        location / {
-            root   c:/server/www;
-            index  index.html index.htm index.php;
-        }
-		```
+	    ```ini
+        worker_processes auto;
+        worker_cpu_affinity auto;
 
-		```ini
-        location ~ \.php$ {
-            root           c:/server/www;
-            fastcgi_pass   127.0.0.1:9000;
-            fastcgi_index  index.php;
-            fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
-            include        fastcgi_params;
-        }
-		  ```
+        error_log  C:\server\var\log\/nginx\error.log;
+        pid        C:\server\var\log\/nginx/\\nginx.pid;
 
-		```ini
-        location ~ /\.ht {
-            deny  all;
+        http {
+            access_log  C:\server\var\log\/nginx\access.log;
+
+            gzip  on;
+            gzip_comp_level  2;
+            gzip_min_length  1000;
+
+            server {
+                access_log  C:\server\var\log\/nginx\localhost.access.log;
+
+                location / {
+                    root   c:/server/www;
+                    index  index.html index.htm index.php;
+                }
+
+                location ~ \.php$ {
+                    root           c:/server/www;
+                    fastcgi_pass   127.0.0.1:9000;
+                    fastcgi_index  index.php;
+                    fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+                    include        fastcgi_params;
+                }
+
+                location ~ /\.ht {
+                    deny  all;
+                }
+            }
         }
-		```
+	    ```
 
 	- Edit **nginx.conf** for *symfony* (C:\server\nginx\conf\nginx.conf) :
-		
+
 		```ini
         # SYMFONY
         location ~ /(app|app_dev|config)\.php(/|$) {
