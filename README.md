@@ -19,6 +19,7 @@
 ## Getting
 
 ```bash
+cmd
 cd C:\
 git clone https://gitlab.com/breithbarbot/server-web-windows.git server\
 ```
@@ -58,6 +59,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	- `extension_dir = "C:\server\php\ext"`
 	- `sys_temp_dir = "C:\server\var\tmp"`
 	- `upload_tmp_dir = "C:\server\var\tmp"`
+	- `extension=bz2`
 	- `extension=curl`
 	- `extension=fileinfo`
 	- `extension=intl`
@@ -106,6 +108,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 #### Sendmail
 
 - Download : https://www.glob.com.au/sendmail/
+    - Copy all files in : **C:\server\sendmail**
 - Edit **php.ini** (C:\server\php\php.ini) :
 	- `sendmail_path = "\"C:\server\sendmail\sendmail.exe\" -t"`
 - Edit file : `C:\server\sendmail\sendmail.ini`
@@ -132,6 +135,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
         worker_cpu_affinity  auto;
 
         error_log  C:\server\var\log\/nginx\error.log;
+
         pid        C:\server\var\log\/nginx/\\nginx.pid;
 
         events {
@@ -140,7 +144,9 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
         }
 
         http {
-            access_log  C:\server\var\log\/nginx\access.log;
+
+            error_log  C:\server\var\log\/nginx\http.error.log;
+            access_log  C:\server\var\log\/nginx\http.access.log;
 
             gzip  on;
             gzip_comp_level  2;
@@ -148,6 +154,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
             server {
                 access_log  C:\server\var\log\/nginx\localhost.access.log;
+                error_log  C:\server\var\log\/nginx\localhost.error.log;
 
                 location / {
                     root   c:/server/www;
@@ -327,6 +334,30 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	- Delete DB (optional) : test
 
 <br>
+
+## En environement de production
+
+#### PHP
+
+- Edit **php.ini** (C:\server\php\php.ini) :
+
+	```ini
+    expose_php = Off
+
+    error_reporting = Off
+
+    mysqlnd.collect_statistics = Off
+    mysqlnd.collect_memory_statistics = Off
+	```
+
+#### Nginx
+
+- Edit **conf.conf** (C:\server\nginx\conf\nginx.conf) :
+
+	```ini
+	server_tokens off;
+	```
+
 
 ## Start & Stop all servers
 
