@@ -53,7 +53,6 @@ Restart your system.
 Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 - Edit **php.ini** (C:\server\php\php.ini) :
-	- `open_basedir = "C:\server\www\"`
 	- `error_log = "C:\server\var\log\php_errors.log"`
 	- `include_path = ".;C:\server\php\pear"`
 	- `extension_dir = "C:\server\php\ext"`
