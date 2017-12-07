@@ -67,8 +67,6 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	- `extension=exif`
 	- `extension=openssl`
 	- `date.timezone = Europe/Paris` ([List of Supported Timezones](https://secure.php.net/manual/en/timezones.php))
-	- `mysqlnd.collect_statistics = Off`
-	- `mysqlnd.collect_memory_statistics = Off`
 	- `session.save_path = "C:\server\var\tmp"`
 	- `soap.wsdl_cache_dir = "C:\server\var\tmp"`
 
