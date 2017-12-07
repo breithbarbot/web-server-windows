@@ -130,7 +130,6 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
 	    ```ini
         worker_processes  auto;
-        worker_cpu_affinity  auto;
 
         error_log  C:\server\var\log\/nginx\error.log;
 
