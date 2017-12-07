@@ -1,6 +1,10 @@
 @ECHO OFF
 ECHO Stoping NGINX...
-cd "C:\server\nginx"
 :: http://nginx.org/en/docs/windows.html
-nginx.exe -s quit
-taskkill /f /IM nginx.exe
+set prg=nginx.exe
+QPROCESS "%prg%">NUL
+IF %errorlevel% EQU 0 (
+	echo "Process (%prg%) stoping..."
+	cd "C:\server\nginx"
+	nginx.exe -s quit
+)

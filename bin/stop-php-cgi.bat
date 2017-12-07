@@ -1,4 +1,10 @@
 @ECHO OFF
 ECHO Stoping PHP FastCGI...
-cd "C:\server\php"
-taskkill /f /IM php-cgi.exe
+
+set prg=php-cgi.exe
+QPROCESS "%prg%">NUL
+IF %errorlevel% EQU 0 (
+	echo "Process (%prg%) stoping..."
+	cd "C:\server\php"
+	taskkill /f /IM %prg%
+)
