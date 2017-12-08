@@ -8,7 +8,7 @@ QPROCESS "%prg%">NUL
 IF %errorlevel% GTR 0 (
 	echo "Process (%prg%) starting..."
 	cd "C:\server\mysql\bin"
-	%prg% --defaults-file=C:\server\mysql\bin\my.ini --log-error=C:\server\var\log\mysql\ 
+	start %prg% --defaults-file=C:\server\mysql\bin\my.ini --log-error=C:\server\var\log\mysql\
 ) else (
 	echo "Process (%prg%) already starting..."
 )
