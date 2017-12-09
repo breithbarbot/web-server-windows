@@ -150,16 +150,17 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
             gzip_min_length  1000;
 
             server {
+
+                root           c:/server/www;
+
                 access_log  C:\server\var\log\/nginx\localhost.access.log;
                 error_log  C:\server\var\log\/nginx\localhost.error.log;
 
                 location / {
-                    root   c:/server/www;
                     index  index.html index.htm index.php;
                 }
 
                 location ~ \.php$ {
-                    root           c:/server/www;
                     fastcgi_pass   127.0.0.1:9000;
                     fastcgi_index  index.php;
                     fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
