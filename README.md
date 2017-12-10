@@ -152,6 +152,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
             server {
 
                 root           c:/server/www;
+             
+                charset utf-8;
 
                 access_log  C:\server\var\log\/nginx\localhost.access.log;
                 error_log  C:\server\var\log\/nginx\localhost.error.log;
@@ -173,21 +175,6 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
             }
         }
 	    ```
-
-	- Edit **nginx.conf** for *symfony* (C:\server\nginx\conf\nginx.conf) :
-
-		```ini
-        # SYMFONY
-        location ~ /(app|app_dev|config)\.php(/|$) {
-            root           c:/server/www;
-            fastcgi_pass   127.0.0.1:9000;
-            fastcgi_split_path_info ^(.+\.php)(/.*)$;
-            include fastcgi_params;
-            
-            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-            fastcgi_param DOCUMENT_ROOT $realpath_root;
-        }
-		```
 
 <br>
 
