@@ -194,12 +194,12 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	socket		= C:/server/var/tmp/mysql.sock
 
 	[mysqld]
-	
+
 	socket		= C:/server/var/tmp/mysql.sock
-	
+
 	# Point the following paths to a dedicated disk
 	tmpdir		= C:/server/var/tmp/
-	
+
 	# Uncomment the following if you are using InnoDB tables
 	innodb_data_home_dir = C:/server/mysql/data/
 	innodb_data_file_path = ibdata1:250M;ibdata2:10M:autoextend
@@ -213,6 +213,9 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	innodb_log_buffer_size = 8M
 	innodb_flush_log_at_trx_commit = 1
 	innodb_lock_wait_timeout = 50
+
+    collation-server     = utf8mb4_general_ci
+    character-set-server = utf8mb4
 	```
 
 - Edit **php.ini** (C:\server\php\php.ini) :
