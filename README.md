@@ -1,5 +1,5 @@
-# Server Web for Windows
-> A simple server web for windows with PHP, Nginx, MariaDB and phpMyAdmin.
+# Web Server for Windows
+> A simple web server for windows with PHP, Nginx, MariaDB and phpMyAdmin.
 
 <br>
 
