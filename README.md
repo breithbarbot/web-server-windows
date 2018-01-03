@@ -118,7 +118,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	- If you have this error during install : **Signature mismatch, could not verify the phar file integrity**
 		- Comment temporarily : `zend_extension=opcache` in *C:\server\php\php.ini*, run Composer install and after, uncomment.
 
-#### Xdebub
+#### Xdebug
 
 - Download [PHP 7.2 VC15 TS (64 bit)](https://xdebug.org/download.php)
 - Save file in : `C:\server\php\ext\php_xdebug.dll`
