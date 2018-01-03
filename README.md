@@ -129,50 +129,125 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	- Edit **nginx.conf** (C:\server\nginx\conf\nginx.conf) :
 
 	    ```ini
+        #user  nobody;
         worker_processes  auto;
-
+        
         error_log  C:\server\var\log\/nginx\error.log;
-
+        #error_log  logs/error.log  notice;
+        #error_log  logs/error.log  info;
+        
         pid        C:\server\var\log\/nginx/\\nginx.pid;
-
+        
         events {
-            worker_connections  2048;
-            multi_accept  on;
+        	worker_connections  2048;
+        	multi_accept  on;
         }
-
+        
         http {
-
-            error_log  C:\server\var\log\/nginx\http.error.log;
+            include       mime.types;
+            default_type  application/octet-stream;
+        
+            #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+            #                  '$status $body_bytes_sent "$http_referer" '
+            #                  '"$http_user_agent" "$http_x_forwarded_for"';
+        
+        	error_log  C:\server\var\log\/nginx\http.error.log;
             access_log  C:\server\var\log\/nginx\http.access.log;
-
+        
+            sendfile        on;
+            #tcp_nopush     on;
+        
+            #keepalive_timeout  0;
+            keepalive_timeout  65;
+        
             gzip  on;
-            gzip_comp_level  2;
-            gzip_min_length  1000;
+        	gzip_comp_level  2;
+        	gzip_min_length  1000;
+        
+        	##
+        	# Virtual Host Configs
+        	##
+        	include C:\server\/nginx\conf\conf.d/*.conf;
+        }
+	    ```
 
-            server {
+    - Create **default.conf** (C:\server\nginx\conf\conf.d\default.conf) :
 
-                root           c:/server/www;
-             
-                charset utf-8;
-
-                access_log  C:\server\var\log\/nginx\localhost.access.log;
-                error_log  C:\server\var\log\/nginx\localhost.error.log;
-
-                location / {
-                    index  index.html index.htm index.php;
-                }
-
-                location ~ \.php$ {
-                    fastcgi_pass   127.0.0.1:9000;
-                    fastcgi_index  index.php;
-                    fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
-                    include        fastcgi_params;
-                }
-
-                location ~ /\.ht {
-                    deny  all;
-                }
+	    ```ini
+        # HTTP Server
+        server {
+            listen       80;
+            server_name  localhost;
+        
+            root   c:/server/www;
+        
+            charset utf-8;
+        
+            location / {
+                index  index.html index.htm index.php;
             }
+        
+            # redirect server error pages to the static page /50x.html
+            #
+            error_page   500 502 503 504  /50x.html;
+            location = /50x.html {
+                root   html;
+            }
+        
+            # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+            #
+            location ~ \.php$ {
+                fastcgi_pass   127.0.0.1:9000;
+                fastcgi_index  index.php;
+                fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+                include        fastcgi_params;
+            }
+        
+        
+            # deny access to .htaccess files, if Apache's document root
+            # concurs with nginx's one
+            #
+            location ~ /\.ht {
+                deny  all;
+            }
+        
+            error_log  C:\server\var\log\/nginx\localhost.error.log;
+            access_log  C:\server\var\log\/nginx\localhost.access.log;
+        }
+	    ```
+
+    - Create **symfony.conf** (C:\server\nginx\conf\conf.d\symfony.conf) :
+
+	    ```ini
+        # For Symfony 2/3/4 apps
+        #
+        server {
+            listen       81;
+            server_name  localhost;
+        
+            root   c:/server/www;
+        
+            charset utf-8;
+        
+            location ~ /(app|app_dev|config|public/index)\.php(/|$) {
+                fastcgi_pass   127.0.0.1:9000;
+                fastcgi_split_path_info ^(.+\.php)(/.*)$;
+                include fastcgi_params;
+        
+                fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+                fastcgi_param DOCUMENT_ROOT $realpath_root;
+            }
+        
+            location ~ \.php$ {
+                return 404;
+            }
+        
+            location ~ /\.ht {
+                deny  all;
+            }
+        
+            error_log  C:\server\var\log\/nginx\localhost.symfony.error.log;
+            access_log  C:\server\var\log\/nginx\localhost.symfony.access.log;
         }
 	    ```
 
