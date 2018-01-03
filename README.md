@@ -93,7 +93,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 - Download [7.2 Thread Safe (TS) x64](https://pecl.php.net/package/APCu)
 - Save file in : `C:\server\php\ext\php_apcu.dll`
-- Edit end **php.ini** (C:\server\php\php.ini) :
+- Edit at the end **php.ini** (C:\server\php\php.ini) :
 
 	```ini
 	[apcu]
@@ -117,6 +117,17 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	- The default installation folder/file is : **C:\ProgramData\ComposerSetup\bin\composer.phar**
 	- If you have this error during install : **Signature mismatch, could not verify the phar file integrity**
 		- Comment temporarily : `zend_extension=opcache` in *C:\server\php\php.ini*, run Composer install and after, uncomment.
+
+#### Xdebub
+
+- Download [PHP 7.2 VC15 TS (64 bit)](https://xdebug.org/download.php)
+- Save file in : `C:\server\php\ext\php_xdebug.dll`
+- Add at the end **php.ini** (C:\server\php\php.ini) :
+
+	```ini
+	[Xdebug]
+    zend_extension=xdebug
+	```
 
 <br>
 
