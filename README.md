@@ -178,11 +178,11 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
         	##
         	# Virtual Host Configs
         	##
-        	include C:\server\/nginx\conf\conf.d/*.conf;
+        	include C:\server\/nginx\conf\modules-enabled/*.conf;
         }
 	    ```
 
-    - Create **default.conf** (C:\server\nginx\conf\conf.d\default.conf) :
+    - Create **default.conf** (C:\server\nginx\conf\modules-enabled\default.conf) :
 
 	    ```ini
         # HTTP Server
@@ -227,7 +227,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
         }
 	    ```
 
-    - Create **symfony.conf** (C:\server\nginx\conf\conf.d\symfony.conf) :
+    - Create **symfony.conf** (C:\server\nginx\conf\modules-enabled\symfony.conf) :
 
 	    ```ini
         # For Symfony 2/3/4 apps
