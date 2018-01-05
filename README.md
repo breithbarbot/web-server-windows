@@ -417,7 +417,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
 <br>
 
-## En environement de production
+## In production environment
 
 #### PHP
 
