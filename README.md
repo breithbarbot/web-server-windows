@@ -125,7 +125,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 - Add at the end **php.ini** (C:\server\php\php.ini) :
 
 	```ini
-	[Xdebug]
+    [Xdebug]
     zend_extension=xdebug
 	```
 
