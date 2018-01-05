@@ -140,49 +140,59 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	- Edit **nginx.conf** (C:\server\nginx\conf\nginx.conf) :
 
 	    ```ini
+
         #user  nobody;
         worker_processes  auto;
         
-        error_log  C:\server\var\log\/nginx\error.log;
-        #error_log  logs/error.log  notice;
-        #error_log  logs/error.log  info;
+        error_log  C:\server\var\log\/nginx\error.log warn;
         
         pid        C:\server\var\log\/nginx/\\nginx.pid;
         
         events {
-        	worker_connections  2048;
+        	worker_connections  1024;
         	multi_accept  on;
         }
         
         http {
+
+            ##
+            # Basic Settings
+            ##
+            sendfile on;
+            #tcp_nopush on;
+            #tcp_nodelay on;
+            keepalive_timeout 65;
+            types_hash_max_size 2048;
+            server_tokens off;
+
             include       mime.types;
             default_type  application/octet-stream;
-        
-            #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-            #                  '$status $body_bytes_sent "$http_referer" '
-            #                  '"$http_user_agent" "$http_x_forwarded_for"';
-        
-        	error_log  C:\server\var\log\/nginx\http.error.log;
-            access_log  C:\server\var\log\/nginx\http.access.log;
-        
-            sendfile        on;
-            #tcp_nopush     on;
-        
-            #keepalive_timeout  0;
-            keepalive_timeout  65;
-        
+
+            ##
+            # Logging Settings
+            ##
+            log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                              '$status $body_bytes_sent "$http_referer" '
+                              '"$http_user_agent" "$http_x_forwarded_for"';
+
+            access_log C:\server\var\log\/nginx/http_access.log main;
+            error_log C:\server\var\log\/nginx/http_error.log;
+
+            ##
+            # Gzip Settings
+            ##
             gzip  on;
         	gzip_comp_level  2;
         	gzip_min_length  1000;
-        
+
         	##
         	# Virtual Host Configs
         	##
-        	include C:\server\/nginx\conf\modules-enabled/*.conf;
+        	include C:\server\/nginx\conf\conf.d/*.conf;
         }
 	    ```
 
-    - Create **default.conf** (C:\server\nginx\conf\modules-enabled\default.conf) :
+    - Create **default.conf** (C:\server\nginx\conf\conf.d\default.conf) :
 
 	    ```ini
         # HTTP Server
@@ -227,7 +237,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
         }
 	    ```
 
-    - Create **symfony.conf** (C:\server\nginx\conf\modules-enabled\symfony.conf) :
+    - Create **symfony.conf** (C:\server\nginx\conf\conf.d\symfony.conf) :
 
 	    ```ini
         # For Symfony 2/3/4 apps
