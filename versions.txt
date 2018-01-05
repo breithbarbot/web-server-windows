@@ -4,4 +4,4 @@ APCu=5.1.8
 Composer=1.5.5
 Nginx=1.12.2
 MariaDB=10.2.11
-phpMyAdmin=4.7.6
+phpMyAdmin=4.7.7
