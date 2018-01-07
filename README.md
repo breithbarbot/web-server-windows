@@ -99,7 +99,6 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	[apcu]
 	extension=apcu
 	apc.enabled=1
-	apc.enable_cli=1
 	apc.shm_size=64M
 	```
 
