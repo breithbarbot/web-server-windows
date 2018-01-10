@@ -3,7 +3,7 @@
 
 <br>
 
-- PHP (Recommanded PHP 7.2)
+- PHP (Recommanded PHP >= 7.2)
 	- cURL
 	- OPCache
 	- APCu
@@ -11,7 +11,7 @@
 	- Composer
 - Nginx
 - MariaDB
-- phpMyAdmin
+- phpMyAdmin (Recommanded phpMyAdmin >= 4.7.7)
 	- With config for *phpMyAdmin configuration storage*
 
 <br>
@@ -99,7 +99,6 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	[apcu]
 	extension=apcu
 	apc.enabled=1
-	apc.enable_cli=1
 	apc.shm_size=64M
 	```
 
@@ -140,7 +139,6 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	- Edit **nginx.conf** (C:\server\nginx\conf\nginx.conf) :
 
 	    ```ini
-
         #user  nobody;
         worker_processes  auto;
         
@@ -409,7 +407,6 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		$cfg['Export']['charset'] = 'utf-8';
 		$cfg['UploadDir'] = 'import';
 		$cfg['SaveDir'] = 'save';
-		?>
 		```
 	
 	- Create user/password for **phpMyAdmin configuration storage**
@@ -419,7 +416,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
 <br>
 
-## En environement de production
+## In production environment
 
 #### PHP
 
