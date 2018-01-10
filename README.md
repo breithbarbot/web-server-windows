@@ -85,7 +85,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	[opcache]
 	zend_extension=opcache
 	opcache.enable=1
-	opcache.enable_cli=1
+	opcache.enable_cli=0
 	opcache.error_log = "C:\server\var\log\php_opcache_errors.log"
 	```
 
