@@ -56,7 +56,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 - Edit **php.ini** (C:\server\php\php.ini) :
 	- `error_log = "C:\server\var\log\php_errors.log"`
 	- `include_path = ".;C:\server\php\pear"`
-	- `extension_dir = "C:\server\php\ext"`
+	- `extension_dir = "ext"`
 	- `sys_temp_dir = "C:\server\var\tmp"`
 	- `upload_tmp_dir = "C:\server\var\tmp"`
 	- `extension=bz2`
