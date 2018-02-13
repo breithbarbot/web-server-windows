@@ -65,17 +65,18 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 	- `extension=intl`
 	- `extension=mbstring`
 	- `extension=exif`
-	- `extension=openssl`
 	- `date.timezone = Europe/Paris` ([List of Supported Timezones](https://secure.php.net/manual/en/timezones.php))
 	- `session.save_path = "C:\server\var\tmp"`
 	- `soap.wsdl_cache_dir = "C:\server\var\tmp"`
 
-#### cURL
+#### cURL / SSL
 
 - Download : https://curl.haxx.se/docs/caextract.html
 - Save file in : **C:\server\php\extras\ssl\cacert.pem**
 - Edit **php.ini** (C:\server\php\php.ini) :
+	- `extension=openssl`
 	- `curl.cainfo = "C:\server\php\extras\ssl\cacert.pem"`
+	- `openssl.cafile = "C:\server\php\extras\ssl\cacert.pem"`
 
 #### OPCache
 
