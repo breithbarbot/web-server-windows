@@ -359,20 +359,43 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		```php
 		<?php
 
-		/* Servers configuration */
+		/**
+		 * This is needed for cookie based authentication to encrypt password in
+		 * cookie. Needs to be 32 chars long.
+		 */
+		$cfg['blowfish_secret'] = 'pW|Sfj4@XZDQnm%@m+tV-=*yK7QwUHH+r1}]p8fh_O='; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+
+		/**
+		 * Servers configuration
+		 */
 		$i = 0;
 
-		/* Server: localhost */
+		/**
+		 * Server: localhost
+		 */
 		$i++;
+		/* Authentication type */
+		$cfg['Servers'][$i]['auth_type'] = 'config';
+		/* Server parameters */
 		$cfg['Servers'][$i]['hide_db'] = 'information_schema|mysql|performance_schema|phpmyadmin';
 		$cfg['Servers'][$i]['verbose'] = '';
 		$cfg['Servers'][$i]['host'] = 'localhost';
+		$cfg['Servers'][$i]['compress'] = false;
 		$cfg['Servers'][$i]['port'] = '';
 		$cfg['Servers'][$i]['socket'] = '';
-		$cfg['Servers'][$i]['auth_type'] = 'config';
 		$cfg['Servers'][$i]['user'] = 'root';
 		$cfg['Servers'][$i]['password'] = '';
 		$cfg['Servers'][$i]['AllowNoPassword'] = true;
+
+		/**
+		 * phpMyAdmin configuration storage settings.
+		 */
+		
+		/* User used to manipulate with storage */
+		$cfg['Servers'][$i]['controluser'] = 'phpmyadmin';
+		$cfg['Servers'][$i]['controlpass'] = 'YOUR_PASSWORD';
+
+		/* Storage database and tables */
 		$cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
 		$cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
 		$cfg['Servers'][$i]['relation'] = 'pma__relation';
@@ -393,16 +416,16 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		$cfg['Servers'][$i]['central_columns'] = 'pma__central_columns';
 		$cfg['Servers'][$i]['designer_settings'] = 'pma__designer_settings';
 		$cfg['Servers'][$i]['export_templates'] = 'pma__export_templates';
-		$cfg['Servers'][$i]['controluser'] = 'phpmyadmin';
-		$cfg['Servers'][$i]['controlpass'] = 'YOUR_PASSWORD';
 
-		/* End of servers configuration */
-
-		$cfg['blowfish_secret'] = '`CCYKmuMJiLNDD>C1sVMzt3x^c^(3WD^';
+		/**
+		 * End of servers configuration
+		 */
+		
 		$cfg['DefaultLang'] = 'en';
 		$cfg['ShowPhpInfo'] = true;
 		$cfg['ShowDbStructureCharset'] = true;
 		$cfg['MaxRows'] = 50;
+		$cfg['ForceSSL'] = false;
 		$cfg['Import']['charset'] = 'utf-8';
 		$cfg['Export']['compression'] = 'zip';
 		$cfg['Export']['charset'] = 'utf-8';
