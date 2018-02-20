@@ -139,7 +139,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
     - [Core functionality](http://nginx.org/en/docs/ngx_core_module.html)
 	- Edit **nginx.conf** (C:\server\nginx\conf\nginx.conf) :
 
-	    ```ini
+	    ```nginx
         #user  nobody;
         worker_processes  auto;
         
@@ -193,7 +193,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
     - Create **default.conf** (C:\server\nginx\conf\conf.d\default.conf) :
 
-	    ```ini
+	    ```nginx
         # HTTP Server
         server {
             listen       80;
@@ -238,7 +238,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
     - Create **symfony.conf** (C:\server\nginx\conf\conf.d\symfony.conf) :
 
-	    ```ini
+	    ```nginx
         # For Symfony 2/3/4 apps
         #
         server {
