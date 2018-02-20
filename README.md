@@ -21,7 +21,7 @@
 ```bash
 cmd
 cd C:\
-git clone https://gitlab.com/breithbarbot/server-web-windows.git server\
+git clone https://gitlab.com/breithbarbot/web-server-windows.git server\
 ```
 
 <br>
