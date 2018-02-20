@@ -140,55 +140,55 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	- Edit **nginx.conf** (C:\server\nginx\conf\nginx.conf) :
 
 	    ```nginx
-        #user  nobody;
-        worker_processes  auto;
-        
-        error_log  C:\server\var\log\/nginx\error.log warn;
-        
-        pid        C:\server\var\log\/nginx/\\nginx.pid;
-        
-        events {
-        	worker_connections  1024;
-        	multi_accept  on;
-        }
-        
-        http {
+	    #user  nobody;
+	    worker_processes  auto;
+	    
+	    error_log  C:\server\var\log\/nginx\error.log warn;
+	    
+	    pid        C:\server\var\log\/nginx/\\nginx.pid;
+	    
+	    events {
+	        worker_connections  1024;
+	        multi_accept  on;
+	    }
+	    
+	    http {
 
-            ##
-            # Basic Settings
-            ##
-            sendfile on;
-            #tcp_nopush on;
-            #tcp_nodelay on;
-            keepalive_timeout 65;
-            types_hash_max_size 2048;
-            server_tokens off;
+	        ##
+	        # Basic Settings
+	        ##
+	        sendfile on;
+	        #tcp_nopush on;
+	        #tcp_nodelay on;
+	        keepalive_timeout 65;
+	        types_hash_max_size 2048;
+	        server_tokens off;
 
-            include       mime.types;
-            default_type  application/octet-stream;
+	        include       mime.types;
+	        default_type  application/octet-stream;
 
-            ##
-            # Logging Settings
-            ##
-            log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                              '$status $body_bytes_sent "$http_referer" '
-                              '"$http_user_agent" "$http_x_forwarded_for"';
+	        ##
+	        # Logging Settings
+	        ##
+	        log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+	                          '$status $body_bytes_sent "$http_referer" '
+	                          '"$http_user_agent" "$http_x_forwarded_for"';
 
-            access_log C:\server\var\log\/nginx/http_access.log main;
-            error_log C:\server\var\log\/nginx/http_error.log;
+	        access_log C:\server\var\log\/nginx/http_access.log main;
+	        error_log C:\server\var\log\/nginx/http_error.log;
 
-            ##
-            # Gzip Settings
-            ##
-            gzip  on;
-        	gzip_comp_level  2;
-        	gzip_min_length  1000;
+	        ##
+	        # Gzip Settings
+	        ##
+	        gzip  on;
+	        gzip_comp_level  2;
+	        gzip_min_length  1000;
 
-        	##
-        	# Virtual Host Configs
-        	##
-        	include C:\server\/nginx\conf\conf.d/*.conf;
-        }
+	        ##
+	        # Virtual Host Configs
+	        ##
+	        include C:\server\/nginx\conf\conf.d/*.conf;
+	    }
 	    ```
 
     - Create **default.conf** (C:\server\nginx\conf\conf.d\default.conf) :
