@@ -21,7 +21,7 @@
 ```bash
 cmd
 cd C:\
-git clone https://gitlab.com/breithbarbot/web-server-windows.git server\
+git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 ```
 
 <br>
@@ -330,10 +330,10 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		```bash
 		mysql -u root -p
 
-		MariaDB [(none)]> USE mysql;
-		MariaDB [(none)]> UPDATE user SET `password` = PASSWORD('YOUR_PASSWORD') WHERE `User` = 'root';
-		MariaDB [(none)]> FLUSH PRIVILEGES;
-		MariaDB [(none)]> quit;
+		USE mysql;
+		UPDATE user SET `password` = PASSWORD('YOUR_PASSWORD') WHERE `User` = 'root';
+		FLUSH PRIVILEGES;
+		quit;
 		```
 	3. Stop ant restart *mysql*.
 
@@ -379,11 +379,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		$cfg['Servers'][$i]['auth_type'] = 'config';
 		/* Server parameters */
 		$cfg['Servers'][$i]['hide_db'] = 'information_schema|mysql|performance_schema|phpmyadmin';
-		$cfg['Servers'][$i]['verbose'] = '';
 		$cfg['Servers'][$i]['host'] = 'localhost';
 		$cfg['Servers'][$i]['compress'] = false;
-		$cfg['Servers'][$i]['port'] = '';
-		$cfg['Servers'][$i]['socket'] = '';
 		$cfg['Servers'][$i]['user'] = 'root';
 		$cfg['Servers'][$i]['password'] = '';
 		$cfg['Servers'][$i]['AllowNoPassword'] = true;
@@ -393,6 +390,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		 */
 		
 		/* User used to manipulate with storage */
+		// $cfg['Servers'][$i]['controlhost'] = '';
+		// $cfg['Servers'][$i]['controlport'] = '';
 		$cfg['Servers'][$i]['controluser'] = 'phpmyadmin';
 		$cfg['Servers'][$i]['controlpass'] = '';
 		
@@ -421,16 +420,22 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		/**
 		 * End of servers configuration
 		 */
-		
-		$cfg['DefaultLang'] = 'fr';
-		$cfg['ShowPhpInfo'] = true;
+
+		/**
+		 * Directories for saving/loading files from server
+		 */
+		$cfg['UploadDir'] = 'import';
+		$cfg['SaveDir'] = 'save';
+
 		$cfg['MaxRows'] = 50;
+
+		$cfg['DefaultLang'] = 'fr';
+
+		$cfg['ShowPhpInfo'] = true;
 		$cfg['ForceSSL'] = false;
 		$cfg['Import']['charset'] = 'utf-8';
 		$cfg['Export']['compression'] = 'zip';
 		$cfg['Export']['charset'] = 'utf-8';
-		$cfg['UploadDir'] = 'import';
-		$cfg['SaveDir'] = 'save';
 		```
 	
 	- Create user/password for **phpMyAdmin configuration storage**
