@@ -1,5 +1,5 @@
 @ECHO OFF
-ECHO Starting NGINX...
+echo Starting NGINX...
 :: http://nginx.org/en/docs/windows.html
 set prg=nginx.exe
 QPROCESS "%prg%">NUL

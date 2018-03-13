@@ -1,5 +1,5 @@
 @ECHO OFF
-ECHO Stoping NGINX...
+echo Stoping NGINX...
 :: http://nginx.org/en/docs/windows.html
 set prg=nginx.exe
 QPROCESS "%prg%">NUL
