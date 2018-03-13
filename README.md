@@ -144,9 +144,9 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	    #user  nobody;
 	    worker_processes  auto;
 	    
-	    error_log  C:\server\var\log\/nginx\error.log warn;
+	    error_log  C:\server\var\log\\nginx\error.log warn;
 	    
-	    pid        C:\server\var\log\/nginx/\\nginx.pid;
+	    pid        C:\server\var\log\\nginx\\nginx.pid;
 	    
 	    events {
 	        worker_connections  1024;
@@ -175,8 +175,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	                          '$status $body_bytes_sent "$http_referer" '
 	                          '"$http_user_agent" "$http_x_forwarded_for"';
 
-	        access_log C:\server\var\log\/nginx/http_access.log main;
-	        error_log C:\server\var\log\/nginx/http_error.log;
+	        access_log C:\server\var\log\\nginx\http_access.log main;
+	        error_log C:\server\var\log\\nginx\http_error.log;
 
 	        ##
 	        # Gzip Settings
@@ -188,7 +188,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	        ##
 	        # Virtual Host Configs
 	        ##
-	        include C:\server\/nginx\conf\conf.d/*.conf;
+	        include C:\server\\nginx\conf\conf.d/*.conf;
 	    }
 	    ```
 
