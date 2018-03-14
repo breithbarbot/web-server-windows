@@ -330,13 +330,25 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	- login : **root**
 	- password : **null**
 
+- Run :
+    - `mysql_install_db --datadir=C:\server\mysql\data\`
+
+- Set MySQL a service (In admin)
+    - `C:\server\mysql\bin\mysqld.exe --install MySQL --defaults-file=C:\server\mysql\bin\my.ini`
+    - Start : `net start mysql`
+    - Stop : `net stop mysql`
+
+- For remove MySQL a service (In admin)
+    - Stop : `net stop mysql`
+    - `C:\server\mysql\bin\mysqld.exe --remove`
+
 - For set password or null/empty password ?
 	1. Start *mysql* server in safe mode.
 		- `C:\server\bin\start-mysql-safe-mode.bat`
 	2. Run commands
-		- For set **null / empty** password :
+		- For remove password :
 			- `UPDATE user SET password = '' WHERE User = 'root';`
-		- For set **not empty** password :
+		- For set password :
 
 			```bash
 			mysql -u root -p
@@ -454,9 +466,13 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		$cfg['Export']['charset'] = 'utf-8';
 		```
 
-	- Create user/password for **phpMyAdmin configuration storage**
+    -Run:
+        - `C:\server\mysql\bin\mysql -u root < C:\server\phpmyadmin\sql\create_tables.sql`
+
+	- Create a user/password in phpMyAdmin for **phpMyAdmin configuration storage**
 		- Change user to *controluser* variable
 		- Change password to *controlpass* variable
+
 	- Delete DB (optional) : test
 
 <br>
@@ -487,8 +503,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
 ## Start & Stop all servers
 
-- Start : `C:\server\_start.bat`
-- Stop : `C:\server\_stop.bat`
+- Start (In admin) : `C:\server\_start.bat`
+- Stop (In admin) : `C:\server\_stop.bat`
 
 <br>
 
