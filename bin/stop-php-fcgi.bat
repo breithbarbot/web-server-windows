@@ -1,6 +1,5 @@
 @ECHO OFF
-ECHO Stoping PHP FastCGI...
-
+echo Stoping PHP FastCGI...
 set prg=php-cgi.exe
 QPROCESS "%prg%">NUL
 IF %errorlevel% EQU 0 (

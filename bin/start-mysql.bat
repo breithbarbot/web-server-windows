@@ -1,5 +1,5 @@
 @ECHO OFF
-ECHO Starting MySQL...
+echo Starting MySQL...
 :: https://dev.mysql.com/doc/refman/5.7/en/windows-start-command-line.html
 :: Future mistake? https://dev.mysql.com/doc/refman/5.7/en/replication-howto-additionalslaves.html
 :: https://mariadb.com/kb/en/library/running-mariadb-from-the-build-directory/

@@ -1,5 +1,5 @@
 @ECHO OFF
-ECHO Starting PHP FastCGI...
+echo Starting PHP FastCGI...
 set prg=php-cgi.exe
 QPROCESS "%prg%">NUL
 IF %errorlevel% GTR 0 (

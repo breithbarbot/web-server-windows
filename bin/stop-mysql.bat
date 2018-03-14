@@ -1,5 +1,5 @@
 @ECHO OFF
-ECHO Stoping MySQL...
+echo Stoping MySQL...
 :: https://dev.mysql.com/doc/refman/5.7/en/windows-start-command-line.html
 :: Future mistake? https://dev.mysql.com/doc/refman/5.7/en/replication-howto-additionalslaves.html
 set prg=mysqld.exe

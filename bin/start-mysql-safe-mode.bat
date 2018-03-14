@@ -1,5 +1,5 @@
 @ECHO OFF
-ECHO Starting MySQL (Safe mode)...
+echo Starting MySQL (Safe mode)...
 set prg=mysqld.exe
 QPROCESS "%prg%">NUL
 IF %errorlevel% GTR 0 (
