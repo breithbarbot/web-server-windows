@@ -1,4 +1,5 @@
 # Web Server for Windows
+
 > A simple web server for windows with PHP, Nginx, MariaDB and phpMyAdmin.
 
 <br>
@@ -50,6 +51,8 @@ Restart your system.
 <br>
 
 ### PHP
+
+> **php-7.X.X-Win32-VC15-x64.zip** in : `C:\server\php`.
 
 Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
@@ -133,6 +136,8 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 ### Nginx
 
+> **nginx-1.X.X.zip** in : `C:\server\nginx`.
+
 Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.original`
 
 - Edit nginx files in : "C:\server\nginx"
@@ -141,54 +146,54 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
 	    ```nginx
 	    #user  nobody;
-	    worker_processes  auto;
-	    
-	    error_log  C:\server\var\log\/nginx\error.log warn;
-	    
-	    pid        C:\server\var\log\/nginx/\\nginx.pid;
-	    
-	    events {
-	        worker_connections  1024;
-	        multi_accept  on;
-	    }
-	    
-	    http {
+        worker_processes  auto;
 
-	        ##
-	        # Basic Settings
-	        ##
-	        sendfile on;
-	        #tcp_nopush on;
-	        #tcp_nodelay on;
-	        keepalive_timeout 65;
-	        types_hash_max_size 2048;
-	        server_tokens off;
+        error_log  C:\\server\\var\log\\nginx\\error.log warn;
 
-	        include       mime.types;
-	        default_type  application/octet-stream;
+        pid        C:\\server\\var\log\\nginx\\nginx.pid;
 
-	        ##
-	        # Logging Settings
-	        ##
-	        log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-	                          '$status $body_bytes_sent "$http_referer" '
-	                          '"$http_user_agent" "$http_x_forwarded_for"';
+        events {
+        	worker_connections  1024;
+        	multi_accept  on;
+        }
 
-	        access_log C:\server\var\log\/nginx/http_access.log main;
-	        error_log C:\server\var\log\/nginx/http_error.log;
+        http {
+        
+        	##
+        	# Basic Settings
+        	##
+        	sendfile on;
+        	#tcp_nopush on;
+        	#tcp_nodelay on;
+        	keepalive_timeout 65;
+        	types_hash_max_size 2048;
+        	server_tokens off;
 
-	        ##
-	        # Gzip Settings
-	        ##
-	        gzip  on;
-	        gzip_comp_level  2;
-	        gzip_min_length  1000;
+        	include       mime.types;
+        	default_type  application/octet-stream;
 
-	        ##
-	        # Virtual Host Configs
-	        ##
-	        include C:\server\/nginx\conf\conf.d/*.conf;
-	    }
+        	##
+        	# Logging Settings
+        	##
+        	log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+        					  '$status $body_bytes_sent "$http_referer" '
+        					  '"$http_user_agent" "$http_x_forwarded_for"';
+
+        	access_log C:\\server\\var\\log\\nginx\\http_access.log main;
+        	error_log C:\\server\\var\\log\\nginx\\http_error.log;
+
+        	##
+        	# Gzip Settings
+        	##
+        	gzip  on;
+        	gzip_comp_level  2;
+        	gzip_min_length  1000;
+
+        	##
+        	# Virtual Host Configs
+        	##
+        	include C:\\server\\nginx\\conf\\conf.d/*.conf;
+        }
 	    ```
 
     - Create **default.conf** (C:\server\nginx\conf\conf.d\default.conf) :
@@ -238,6 +243,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
     - Create **symfony.conf** (C:\server\nginx\conf\conf.d\symfony.conf) :
 
+		- **DEPRECATED ! Use [PHP's built-in Web Server](https://symfony.com/doc/current/setup/built_in_web_server.html)**
+
 	    ```nginx
         # For Symfony 2/3/4 apps
         #
@@ -274,6 +281,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 <br>
 
 ### MariaDB
+
+> **mariadb-10.X.X-winx64.zip** in : `C:\server\mysql`.
 
 - Execute :
 	- `cp C:\server\mysql\my-huge.ini C:\server\mysql\bin\my.ini`
@@ -319,27 +328,31 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
 - Default login / password
 	- login : **root**
-	- password : *null*
+	- password : **null**
 
-- Set password or null/empty password ?
+- For set password or null/empty password ?
 	1. Start *mysql* server in safe mode.
-		- *C:\server\bin\start-mysql-safe-mode.bat*
+		- `C:\server\bin\start-mysql-safe-mode.bat`
 	2. Run commands
-		- For set **null / empty** password : `UPDATE user SET password = '' WHERE User = 'root';`
-		
-		```bash
-		mysql -u root -p
+		- For set **null / empty** password :
+			- `UPDATE user SET password = '' WHERE User = 'root';`
+		- For set **not empty** password :
 
-		USE mysql;
-		UPDATE user SET `password` = PASSWORD('YOUR_PASSWORD') WHERE `User` = 'root';
-		FLUSH PRIVILEGES;
-		quit;
-		```
+			```bash
+			mysql -u root -p
+
+			USE mysql;
+			UPDATE user SET `password` = PASSWORD('YOUR_PASSWORD') WHERE `User` = 'root';
+			FLUSH PRIVILEGES;
+			quit;
+			```
 	3. Stop ant restart *mysql*.
 
 <br>
 
 ### phpMyAdmin
+
+> **phpMyAdmin-4.X.X-all-languages.zip** in : `C:\server\phpmyadmin`.
 
 - Creation of a symbolic link
 	- Execute (only with **cmd** in **Administrator**) : `mklink /D C:\server\www\phpmyadmin C:\server\phpmyadmin`
@@ -349,6 +362,9 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 - [Using Setup script](https://docs.phpmyadmin.net/en/latest/setup.html#using-setup-script)
 
 #### Configuration (Manual)
+
+- Execute :
+	- `cp C:\server\phpmyadmin\config.sample.inc.php C:\server\phpmyadmin\config.inc.php`
 
 - Edit **config.inc.php** (C:\server\phpmyadmin\config.inc.php) :
 	- Edit : `$cfg['blowfish_secret'] = '';` ([phpMyAdmin Blowfish Secret Generator](https://www.question-defense.com/tools/phpmyadmin-blowfish-secret-generator))
@@ -388,13 +404,13 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		/**
 		 * phpMyAdmin configuration storage settings.
 		 */
-		
+
 		/* User used to manipulate with storage */
 		// $cfg['Servers'][$i]['controlhost'] = '';
 		// $cfg['Servers'][$i]['controlport'] = '';
 		$cfg['Servers'][$i]['controluser'] = 'phpmyadmin';
-		$cfg['Servers'][$i]['controlpass'] = '';
-		
+		$cfg['Servers'][$i]['controlpass'] = 'vhYSsFuTa6qx';
+
 		/* Storage database and tables */
 		$cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
 		$cfg['Servers'][$i]['bookmarktable'] = 'pma__bookmark';
@@ -416,7 +432,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		$cfg['Servers'][$i]['central_columns'] = 'pma__central_columns';
 		$cfg['Servers'][$i]['designer_settings'] = 'pma__designer_settings';
 		$cfg['Servers'][$i]['export_templates'] = 'pma__export_templates';
-		
+
 		/**
 		 * End of servers configuration
 		 */
@@ -437,7 +453,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		$cfg['Export']['compression'] = 'zip';
 		$cfg['Export']['charset'] = 'utf-8';
 		```
-	
+
 	- Create user/password for **phpMyAdmin configuration storage**
 		- Change user to *controluser* variable
 		- Change password to *controlpass* variable
