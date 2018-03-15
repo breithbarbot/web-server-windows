@@ -470,7 +470,7 @@ Default login : **root**
     -Run:
         - `C:/server/mysql/bin/mysql.exe -u root < C:/server/phpmyadmin/sql/create_tables.sql`
 
-	- Create a **user** and **password** in phpMyAdmin for **phpMyAdmin configuration storage**
+	- Create a **user** and **password** in phpMyAdmin for **phpMyAdmin configuration storage** with full privileges for the **phpmyadmin** base.
 		- Change **user** and **password** to *controluser* variable in `config.inc.php`
 
 	- Delete DB (optional) : test
