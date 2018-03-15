@@ -1,18 +1,29 @@
-@ECHO OFF
-ECHO Restarting all services...
+@echo off
+
+echo --------------------------
+echo Restarting all services...
+echo --------------------------
+
+echo.
+echo.
 
 call "C:\server\bin\stop-php-fcgi.bat"
+call "C:\server\bin\stop-nginx.bat"
 call "C:\server\bin\stop-mysql.bat"
 
-PAUSE
+echo.
+echo.
 
-ECHO Restarting NGINX...
-cd "C:\server\nginx"
-start nginx.exe -s reload
+pause
 
-PAUSE
+echo.
+echo.
 
 call "C:\server\bin\start-php-fcgi.bat"
+call "C:\server\bin\start-nginx.bat"
 call "C:\server\bin\start-mysql.bat"
 
-PAUSE
+echo.
+echo.
+
+pause
