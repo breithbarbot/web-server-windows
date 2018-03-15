@@ -148,9 +148,9 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	    #user  nobody;
         worker_processes  auto;
 
-        error_log  C:\\server\\var\log\\nginx\\error.log warn;
+        error_log  C:/server/var/log/nginx/error.log warn;
 
-        pid        C:\\server\\var\log\\nginx\\nginx.pid;
+        pid        C:/server/var/log/nginx/nginx.pid;
 
         events {
         	worker_connections  1024;
@@ -179,8 +179,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
         					  '$status $body_bytes_sent "$http_referer" '
         					  '"$http_user_agent" "$http_x_forwarded_for"';
 
-        	access_log C:\\server\\var\\log\\nginx\\http_access.log main;
-        	error_log C:\\server\\var\\log\\nginx\\http_error.log;
+        	access_log C:/server/var/log/nginx/http_access.log main;
+        	error_log C:/server/var/log/nginx/http_error.log;
 
         	##
         	# Gzip Settings
@@ -192,7 +192,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
         	##
         	# Virtual Host Configs
         	##
-        	include C:\\server\\nginx\\conf\\conf.d/*.conf;
+        	include C:/server/nginx/conf/conf.d/*.conf;
         }
 	    ```
 
@@ -236,8 +236,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
                 deny  all;
             }
         
-            error_log  C:\server\var\log\/nginx\localhost.error.log;
-            access_log  C:\server\var\log\/nginx\localhost.access.log;
+            error_log  C:/server/var/log//nginx/localhost.error.log;
+            access_log  C:/server/var/log//nginx/localhost.access.log;
         }
 	    ```
 
@@ -273,8 +273,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
                 deny  all;
             }
         
-            error_log  C:\server\var\log\/nginx\localhost.symfony.error.log;
-            access_log  C:\server\var\log\/nginx\localhost.symfony.access.log;
+            error_log  C:/server/var/log//nginx/localhost.symfony.error.log;
+            access_log  C:/server/var/log//nginx/localhost.symfony.access.log;
         }
 	    ```
 
@@ -285,11 +285,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 > **mariadb-10.X.X-winx64.zip** in : `C:\server\mysql`.
 
 - Execute :
-	- `cp C:\server\mysql\my-huge.ini C:\server\mysql\bin\my.ini`
-	- `rm C:\server\mysql\data\ib_buffer_pool`
-	- `rm C:\server\mysql\data\ib_logfile0`
-	- `rm C:\server\mysql\data\ib_logfile1`
-	- `rm C:\server\mysql\data\ibdata1`
+	- `cp C:/server/mysql/my-huge.ini C:/server/mysql/bin/my.ini`
+	- `rm -fr C:/server/mysql/data/*`
 
 - Edit **my.ini** (C:\server\mysql\bin\my.ini) :
 
@@ -297,54 +294,59 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 	[client]
 	socket		= C:/server/var/tmp/mysql.sock
 
+	# Here follows entries for some specific programs
+	plugin-dir=C:/server/mysql/lib/plugin
+
 	[mysqld]
 
 	socket		= C:/server/var/tmp/mysql.sock
 
 	# Point the following paths to a dedicated disk
-	tmpdir		= C:/server/var/tmp/
+	tmpdir		= C:/server/var/tmp
 
 	# Uncomment the following if you are using InnoDB tables
-	innodb_data_home_dir = C:/server/mysql/data/
-	innodb_data_file_path = ibdata1:250M;ibdata2:10M:autoextend
-	innodb_log_group_home_dir = C:/server/mysql/data/
+	innodb_data_home_dir = C:/server/mysql/data
+	#innodb_data_file_path = ibdata1:200M;ibdata2:10M:autoextend
+	innodb_log_group_home_dir = C:/server/mysql/data
 	# You can set .._buffer_pool_size up to 50 - 80 %
 	# of RAM but beware of setting memory usage too high
-	innodb_buffer_pool_size = 384M
+	#innodb_buffer_pool_size = 384M
 	#innodb_additional_mem_pool_size = 20M
 	# Set .._log_file_size to 25 % of buffer pool size
-	innodb_log_file_size = 50M
-	innodb_log_buffer_size = 8M
-	innodb_flush_log_at_trx_commit = 1
-	innodb_lock_wait_timeout = 50
+	#innodb_log_file_size = 100M
+	#innodb_log_buffer_size = 8M
+	#innodb_flush_log_at_trx_commit = 1
+	#innodb_lock_wait_timeout = 50
 
-    collation-server     = utf8mb4_general_ci
-    character-set-server = utf8mb4
+	collation-server     = utf8mb4_general_ci
+	character-set-server = utf8mb4
+	datadir=C:/server/mysql/data
 	```
 
 - Edit **php.ini** (C:\server\php\php.ini) :
 	- `extension=mysqli`
 	- `extension=pdo_mysql`
 
-- Default login / password
-	- login : **root**
-	- password : **null**
+- For install MySQL a service (In admin)
+    - `C:/server/mysql/bin/mysqld.exe --install MySQL --defaults-file=C:/server/mysql/bin/my.ini`
+
+- For remove MySQL a service (In admin)
+    - `C:/server/mysql/bin/mysqld.exe --remove`
+
+- Install DB :
+    - `C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data`
 
 - Run :
-    - `mysql_install_db --datadir=C:\server\mysql\data\`
-
-- Set MySQL a service (In admin)
-    - `C:\server\mysql\bin\mysqld.exe --install MySQL --defaults-file=C:\server\mysql\bin\my.ini`
     - Start : `net start mysql`
     - Stop : `net stop mysql`
 
-- For remove MySQL a service (In admin)
-    - Stop : `net stop mysql`
-    - `C:\server\mysql\bin\mysqld.exe --remove`
+Default login : **root**
+
+<br>
 
 - For set password or null/empty password ?
 	1. Start *mysql* server in safe mode.
-		- `C:\server\bin\start-mysql-safe-mode.bat`
+		- `C:/server/bin/start-mysql-safe-mode.bat`
 	2. Run commands
 		- For remove password :
 			- `UPDATE user SET password = '' WHERE User = 'root';`
@@ -376,13 +378,12 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 #### Configuration (Manual)
 
 - Execute :
-	- `cp C:\server\phpmyadmin\config.sample.inc.php C:\server\phpmyadmin\config.inc.php`
+	- `cp C:/server/phpmyadmin/config.sample.inc.php C:/server/phpmyadmin/config.inc.php`
 
 - Edit **config.inc.php** (C:\server\phpmyadmin\config.inc.php) :
 	- Edit : `$cfg['blowfish_secret'] = '';` ([phpMyAdmin Blowfish Secret Generator](https://www.question-defense.com/tools/phpmyadmin-blowfish-secret-generator))
-	- Edit : `$cfg['Servers'][$i]['controlpass']`
-	- `mkdir C:\server\phpmyadmin\import`
-	- `mkdir C:\server\phpmyadmin\save`
+	- `mkdir C:/server/phpmyadmin/import`
+	- `mkdir C:/server/phpmyadmin/save`
 	- Example *config.inc.php* :
 
 		```php
@@ -467,11 +468,10 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 		```
 
     -Run:
-        - `C:\server\mysql\bin\mysql -u root < C:\server\phpmyadmin\sql\create_tables.sql`
+        - `C:/server/mysql/bin/mysql.exe -u root < C:/server/phpmyadmin/sql/create_tables.sql`
 
-	- Create a user/password in phpMyAdmin for **phpMyAdmin configuration storage**
-		- Change user to *controluser* variable
-		- Change password to *controlpass* variable
+	- Create a **user** and **password** in phpMyAdmin for **phpMyAdmin configuration storage**
+		- Change **user** and **password** to *controluser* variable in `config.inc.php`
 
 	- Delete DB (optional) : test
 
@@ -503,8 +503,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
 ## Start & Stop all servers
 
-- Start (In admin) : `C:\server\_start.bat`
-- Stop (In admin) : `C:\server\_stop.bat`
+- Start (In admin) : `C:/server/_start.bat`
+- Stop (In admin) : `C:/server/_stop.bat`
 
 <br>
 
@@ -513,7 +513,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 1. Execute :
     
     ```bash
-    cd C:\server
+    cd C:/server
     git pull
     ```
 
@@ -529,4 +529,5 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
     - C:\server\mysql\bin
     - C:\server\nginx
     - C:\server\php
-4. Restart your system.
+4. `C:/server/mysql/bin/mysqld.exe --remove`
+5. Restart your system.
