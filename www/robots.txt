@@ -1,2 +1,5 @@
+# http://www.robotstxt.org/
+# https://support.google.com/webmasters/topic/6061961
+
 User-agent: *
 Disallow: /

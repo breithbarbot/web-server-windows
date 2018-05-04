@@ -320,7 +320,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
 
 	collation-server     = utf8mb4_general_ci
 	character-set-server = utf8mb4
-	datadir=C:/server/mysql/data
+	datadir = C:/server/mysql/data
 	```
 
 - Edit **php.ini** (C:\server\php\php.ini) :
@@ -382,8 +382,8 @@ Default login : **root**
 
 - Edit **config.inc.php** (C:\server\phpmyadmin\config.inc.php) :
 	- Edit : `$cfg['blowfish_secret'] = '';` ([phpMyAdmin Blowfish Secret Generator](https://www.question-defense.com/tools/phpmyadmin-blowfish-secret-generator))
-	- `mkdir C:/server/phpmyadmin/import`
-	- `mkdir C:/server/phpmyadmin/save`
+	- `mkdir C:\server\phpmyadmin\import`
+	- `mkdir C:\server\phpmyadmin\save`
 	- Example *config.inc.php* :
 
 		```php
@@ -474,6 +474,8 @@ Default login : **root**
 		- Change **user** and **password** to *controluser* variable in `config.inc.php`
 
 	- Delete DB (optional) : test
+
+	- Create a symbolic link : `mklink /d C:\server\www\phpmyadmin C:\server\phpmyadmin`
 
 <br>
 
