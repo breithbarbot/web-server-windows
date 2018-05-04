@@ -30,7 +30,7 @@ git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 ## Download
 - Download the source files and extract to the each respective folder
 	- **C:\server\php** : [[Recommanded PHP 7.2] PHP (x64 Thread Safe)](http://windows.php.net/download)
-		- The VC15 builds require to have the Visual C++ Redistributable for [Visual Studio 2017 x64](https://go.microsoft.com/fwlink/?LinkId=746572)
+		- The VC15 builds require to have the Visual C++ Redistributable for [Visual Studio 2017 x64](https://aka.ms/vs/15/release/VC_redist.x64.exe)
 	- **C:\server\nginx** : [Nginx](http://nginx.org/en/download.html)
 	- **C:\server\mysql** : [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
 	- **C:\server\phpmyadmin** : [phpMyAdmin](https://www.phpmyadmin.net/downloads)
