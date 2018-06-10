@@ -58,13 +58,16 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 - Edit **php.ini** (C:\server\php\php.ini) :
 	- `error_log = "C:\server\var\log\php_errors.log"`
+	- `post_max_size = 500M`
 	- `include_path = ".;C:\server\php\pear"`
 	- `extension_dir = "ext"`
 	- `sys_temp_dir = "C:\server\var\tmp"`
 	- `upload_tmp_dir = "C:\server\var\tmp"`
+	- `upload_max_filesize = 500M`
 	- `extension=bz2`
 	- `extension=curl`
 	- `extension=fileinfo`
+	- `extension=gd2`
 	- `extension=intl`
 	- `extension=mbstring`
 	- `extension=exif`
@@ -127,9 +130,14 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 - Save file in : `C:\server\php\ext\php_xdebug.dll`
 - Add at the end **php.ini** (C:\server\php\php.ini) :
 
-	```ini
+    ```ini
     [Xdebug]
     zend_extension=xdebug
+
+    ; Display all the tree
+    xdebug.var_display_max_depth = -1
+    xdebug.var_display_max_children = -1
+    xdebug.var_display_max_data = -1
 	```
 
 <br>
@@ -168,6 +176,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
         	keepalive_timeout 65;
         	types_hash_max_size 2048;
         	server_tokens off;
+     	    client_max_body_size 500M;
+            charset utf-8;
 
         	include       mime.types;
         	default_type  application/octet-stream;
@@ -180,7 +190,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
         					  '"$http_user_agent" "$http_x_forwarded_for"';
 
         	access_log C:/server/var/log/nginx/http_access.log main;
-        	error_log C:/server/var/log/nginx/http_error.log;
+        	error_log C:/server/var/log/nginx/http_error.log warn;
 
         	##
         	# Gzip Settings
@@ -205,8 +215,6 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
             server_name  localhost;
         
             root   c:/server/www;
-        
-            charset utf-8;
         
             location / {
                 index  index.html index.htm index.php;
@@ -236,8 +244,8 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
                 deny  all;
             }
         
-            error_log  C:/server/var/log//nginx/localhost.error.log;
             access_log  C:/server/var/log//nginx/localhost.access.log;
+            error_log  C:/server/var/log//nginx/localhost.error.log warn;
         }
 	    ```
 
