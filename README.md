@@ -4,13 +4,13 @@
 
 <br>
 
+- Nginx
 - PHP (Recommanded PHP >= 7.2)
 	- cURL
 	- OPCache
 	- APCu
 	- Sendmail
 	- Composer
-- Nginx
 - MariaDB
 - phpMyAdmin (Recommanded phpMyAdmin >= 4.7.7)
 	- With config for *phpMyAdmin configuration storage*
@@ -50,103 +50,11 @@ Restart your system.
 
 <br>
 
-### PHP
-
-> **php-7.X.X-Win32-VC15-x64.zip** in : `C:\server\php`.
-
-Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
-
-- Edit **php.ini** (C:\server\php\php.ini) :
-	- `error_log = "C:\server\var\log\php_errors.log"`
-	- `post_max_size = 500M`
-	- `include_path = ".;C:\server\php\pear"`
-	- `extension_dir = "ext"`
-	- `sys_temp_dir = "C:\server\var\tmp"`
-	- `upload_tmp_dir = "C:\server\var\tmp"`
-	- `upload_max_filesize = 500M`
-	- `extension=bz2`
-	- `extension=curl`
-	- `extension=fileinfo`
-	- `extension=gd2`
-	- `extension=intl`
-	- `extension=mbstring`
-	- `extension=exif`
-	- `date.timezone = Europe/Paris` ([List of Supported Timezones](https://secure.php.net/manual/en/timezones.php))
-	- `session.save_path = "C:\server\var\tmp"`
-	- `soap.wsdl_cache_dir = "C:\server\var\tmp"`
-
-#### cURL / SSL
-
-- Download : https://curl.haxx.se/docs/caextract.html
-- Save file in : **C:\server\php\extras\ssl\cacert.pem**
-- Edit **php.ini** (C:\server\php\php.ini) :
-	- `extension=openssl`
-	- `curl.cainfo = "C:\server\php\extras\ssl\cacert.pem"`
-	- `openssl.cafile = "C:\server\php\extras\ssl\cacert.pem"`
-
-#### OPCache
-
-- Edit **php.ini** (C:\server\php\php.ini) :
-
-	```ini
-	[opcache]
-	zend_extension=opcache
-	opcache.enable=1
-	opcache.enable_cli=0
-	opcache.error_log = "C:\server\var\log\php_opcache_errors.log"
-	```
-
-#### APCu
-
-- Download [7.2 Thread Safe (TS) x64](https://pecl.php.net/package/APCu)
-- Save file in : `C:\server\php\ext\php_apcu.dll`
-- Edit at the end **php.ini** (C:\server\php\php.ini) :
-
-	```ini
-	[apcu]
-	extension=apcu
-	apc.enabled=1
-	apc.shm_size=64M
-	```
-
-#### Sendmail
-
-- Download : https://www.glob.com.au/sendmail/
-    - Copy all files in : **C:\server\sendmail**
-- Edit **php.ini** (C:\server\php\php.ini) :
-	- `sendmail_path = "\"C:\server\sendmail\sendmail.exe\" -t"`
-- Edit file : `C:\server\sendmail\sendmail.ini`
-
-#### Composer
-
-- Download and install : https://getcomposer.org/download/
-	- The default installation folder/file is : **C:\ProgramData\ComposerSetup\bin\composer.phar**
-	- If you have this error during install : **Signature mismatch, could not verify the phar file integrity**
-		- Comment temporarily : `zend_extension=opcache` in *C:\server\php\php.ini*, run Composer install and after, uncomment.
-
-#### Xdebug
-
-- Download [PHP 7.2 VC15 TS (64 bit)](https://xdebug.org/download.php)
-- Save file in : `C:\server\php\ext\php_xdebug.dll`
-- Add at the end **php.ini** (C:\server\php\php.ini) :
-
-    ```ini
-    [Xdebug]
-    zend_extension=xdebug
-
-    ; Display all the tree
-    xdebug.var_display_max_depth = -1
-    xdebug.var_display_max_children = -1
-    xdebug.var_display_max_data = -1
-	```
-
-<br>
-
 ### Nginx
 
 > **nginx-1.X.X.zip** in : `C:\server\nginx`.
 
-Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.original`
+Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak`
 
 - Edit nginx files in : "C:\server\nginx"
     - [Core functionality](http://nginx.org/en/docs/ngx_core_module.html)
@@ -285,6 +193,98 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.or
             access_log  C:/server/var/log//nginx/localhost.symfony.access.log;
         }
 	    ```
+
+<br>
+
+### PHP
+
+> **php-7.X.X-Win32-VC15-x64.zip** in : `C:\server\php`.
+
+Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
+
+- Edit **php.ini** (C:\server\php\php.ini) :
+	- `error_log = "C:\server\var\log\php_errors.log"`
+	- `post_max_size = 500M`
+	- `include_path = ".;C:\server\php\pear"`
+	- `extension_dir = "ext"`
+	- `sys_temp_dir = "C:\server\var\tmp"`
+	- `upload_tmp_dir = "C:\server\var\tmp"`
+	- `upload_max_filesize = 500M`
+	- `extension=bz2`
+	- `extension=curl`
+	- `extension=fileinfo`
+	- `extension=gd2`
+	- `extension=intl`
+	- `extension=mbstring`
+	- `extension=exif`
+	- `date.timezone = Europe/Paris` ([List of Supported Timezones](https://secure.php.net/manual/en/timezones.php))
+	- `session.save_path = "C:\server\var\tmp"`
+	- `soap.wsdl_cache_dir = "C:\server\var\tmp"`
+
+#### cURL / SSL
+
+- Download : https://curl.haxx.se/docs/caextract.html
+- Save file in : **C:\server\php\extras\ssl\cacert.pem**
+- Edit **php.ini** (C:\server\php\php.ini) :
+	- `extension=openssl`
+	- `curl.cainfo = "C:\server\php\extras\ssl\cacert.pem"`
+	- `openssl.cafile = "C:\server\php\extras\ssl\cacert.pem"`
+
+#### OPCache
+
+- Edit **php.ini** (C:\server\php\php.ini) :
+
+	```ini
+	[opcache]
+	zend_extension=opcache
+	opcache.enable=1
+	opcache.enable_cli=0
+	opcache.error_log = "C:\server\var\log\php_opcache_errors.log"
+	```
+
+#### APCu
+
+- Download [7.2 Thread Safe (TS) x64](https://pecl.php.net/package/APCu)
+- Save file in : `C:\server\php\ext\php_apcu.dll`
+- Edit at the end **php.ini** (C:\server\php\php.ini) :
+
+	```ini
+	[apcu]
+	extension=apcu
+	apc.enabled=1
+	apc.shm_size=64M
+	```
+
+#### Sendmail
+
+- Download : https://www.glob.com.au/sendmail/
+    - Copy all files in : **C:\server\sendmail**
+- Edit **php.ini** (C:\server\php\php.ini) :
+	- `sendmail_path = "\"C:\server\sendmail\sendmail.exe\" -t"`
+- Edit file : `C:\server\sendmail\sendmail.ini`
+
+#### Composer
+
+- Download and install : https://getcomposer.org/download/
+	- The default installation folder/file is : **C:\ProgramData\ComposerSetup\bin\composer.phar**
+	- If you have this error during install : **Signature mismatch, could not verify the phar file integrity**
+		- Comment temporarily : `zend_extension=opcache` in *C:\server\php\php.ini*, run Composer install and after, uncomment.
+
+#### Xdebug
+
+- Download [PHP 7.2 VC15 TS (64 bit)](https://xdebug.org/download.php)
+- Save file in : `C:\server\php\ext\php_xdebug.dll`
+- Add at the end **php.ini** (C:\server\php\php.ini) :
+
+    ```ini
+    [Xdebug]
+    zend_extension=xdebug
+
+    ; Display all the tree
+    xdebug.var_display_max_depth = -1
+    xdebug.var_display_max_children = -1
+    xdebug.var_display_max_data = -1
+	```
 
 <br>
 
@@ -489,6 +489,14 @@ Default login : **root**
 
 ## In production environment
 
+#### Nginx
+
+- Edit **conf.conf** (C:\server\nginx\conf\nginx.conf) :
+
+	```ini
+	server_tokens off;
+	```
+
 #### PHP
 
 - Edit **php.ini** (C:\server\php\php.ini) :
@@ -501,15 +509,6 @@ Default login : **root**
     mysqlnd.collect_statistics = Off
     mysqlnd.collect_memory_statistics = Off
 	```
-
-#### Nginx
-
-- Edit **conf.conf** (C:\server\nginx\conf\nginx.conf) :
-
-	```ini
-	server_tokens off;
-	```
-
 
 ## Start & Stop all servers
 
