@@ -242,6 +242,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     
     [Session]
     session.save_path = "C:\server\var\tmp"
+    session.gc_maxlifetime = 18000
     
     [soap]
     soap.wsdl_cache_dir = "C:\server\var\tmp"
