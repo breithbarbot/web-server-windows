@@ -59,7 +59,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.ba
 - Edit/create nginx files in : "C:\server\nginx"
     - [Core functionality](http://nginx.org/en/docs/ngx_core_module.html)
 	- Edit:
-        ```ini
+        ```nginx
         # C:\server\nginx\conf\nginx.conf
         
         #user  nobody;
@@ -537,8 +537,8 @@ Default login : **root**
 #### Nginx
 
 - Edit:
-    ```ini
-    ; C:\server\nginx\conf\nginx.conf
+    ```nginx
+    # C:\server\nginx\conf\nginx.conf
     
     http {
         server_tokens off;
