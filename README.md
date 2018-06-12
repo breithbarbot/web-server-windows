@@ -29,11 +29,11 @@ git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 
 ## Download
 - Download the source files and extract to the each respective folder
-	- **C:\server\nginx** : [Nginx](http://nginx.org/en/download.html)
-	- **C:\server\php** : [[Recommanded PHP 7.2] PHP (x64 Thread Safe)](http://windows.php.net/download)
+	- **C:\server\nginx**: [Nginx](http://nginx.org/en/download.html)
+	- **C:\server\php**: [[Recommanded PHP 7.2] PHP (x64 Thread Safe)](http://windows.php.net/download)
 		- The VC15 builds require to have the Visual C++ Redistributable for [Visual Studio 2017 x64](https://aka.ms/vs/15/release/VC_redist.x64.exe)
-	- **C:\server\mysql** : [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
-	- **C:\server\phpmyadmin** : [phpMyAdmin](https://www.phpmyadmin.net/downloads)
+	- **C:\server\mysql**: [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
+	- **C:\server\phpmyadmin**: [phpMyAdmin](https://www.phpmyadmin.net/downloads)
 
 <br>
 
@@ -52,11 +52,11 @@ Restart your system.
 
 ### Nginx
 
-> **nginx-1.X.X.zip** in : `C:\server\nginx`.
+> **nginx-1.X.X.zip** in: `C:\server\nginx`.
 
-Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak`
+Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak`
 
-- Edit/create nginx files in : "C:\server\nginx"
+- Edit/create nginx files in: "C:\server\nginx"
     - [Core functionality](http://nginx.org/en/docs/ngx_core_module.html)
 	- Edit:
         ```nginx
@@ -211,9 +211,9 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.ba
 
 ### PHP
 
-> **php-7.X.X-Win32-VC15-x64.zip** in : `C:\server\php`.
+> **php-7.X.X-Win32-VC15-x64.zip** in: `C:\server\php`.
 
-Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
+Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 - [List of Supported Timezones](https://secure.php.net/manual/en/timezones.php)
 - Edit:
@@ -250,8 +250,8 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 #### cURL / SSL
 
-- Download : https://curl.haxx.se/docs/caextract.html
-- Save file in : **C:\server\php\extras\ssl\cacert.pem**
+- Download: https://curl.haxx.se/docs/caextract.html
+- Save file in: **C:\server\php\extras\ssl\cacert.pem**
 - Edit:
     ```ini
     ; C:\server\php\php.ini
@@ -285,7 +285,7 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 #### APCu
 
 - Download [7.2 Thread Safe (TS) x64](https://pecl.php.net/package/APCu)
-- Save file in : `C:\server\php\ext\php_apcu.dll`
+- Save file in: `C:\server\php\ext\php_apcu.dll`
 - Edit at the end:
     ```ini
     ; C:\server\php\php.ini
@@ -298,8 +298,8 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 #### Sendmail
 
-- Download : https://www.glob.com.au/sendmail/
-    - Copy all files in : **C:\server\sendmail**
+- Download: https://www.glob.com.au/sendmail/
+    - Copy all files in: **C:\server\sendmail**
 - Edit:
     ```ini
     ; C:\server\php\php.ini
@@ -311,15 +311,15 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 #### Composer
 
-- Download and install : https://getcomposer.org/download/
-	- The default installation folder/file is : **C:\ProgramData\ComposerSetup\bin\composer.phar**
-	- If you have this error during install : **Signature mismatch, could not verify the phar file integrity**
-		- Comment temporarily : `zend_extension=opcache` in *C:\server\php\php.ini*, run Composer install and after, uncomment.
+- Download and install: https://getcomposer.org/download/
+	- The default installation folder/file is: **C:\ProgramData\ComposerSetup\bin\composer.phar**
+	- If you have this error during install: **Signature mismatch, could not verify the phar file integrity**
+		- Comment temporarily: `zend_extension=opcache` in *C:\server\php\php.ini*, run Composer install and after, uncomment.
 
 #### Xdebug
 
 - Download [PHP 7.2 VC15 TS (64 bit)](https://xdebug.org/download.php)
-- Save file in : `C:\server\php\ext\php_xdebug.dll`
+- Save file in: `C:\server\php\ext\php_xdebug.dll`
 - Add at the end:
     ```ini
     ; C:\server\php\php.ini
@@ -337,9 +337,9 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 ### MariaDB
 
-> **mariadb-10.X.X-winx64.zip** in : `C:\server\mysql`.
+> **mariadb-10.X.X-winx64.zip** in: `C:\server\mysql`.
 
-- Execute :
+- Execute:
 	- `cp C:/server/mysql/my-huge.ini C:/server/mysql/bin/my.ini`
 	- `rm -fr C:/server/mysql/data/*`
 
@@ -394,14 +394,14 @@ Execute : `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 - For remove MySQL a service (In admin)
     - `C:/server/mysql/bin/mysqld.exe --remove`
 
-- Install DB :
+- Install DB:
     - `C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data`
 
-- Run :
-    - Start : `net start mysql`
-    - Stop : `net stop mysql`
+- Run:
+    - Start: `net start mysql`
+    - Stop: `net stop mysql`
 
-Default login : **root**
+Default login: **root**
 
 <br>
 
@@ -409,9 +409,9 @@ Default login : **root**
 	1. Start *mysql* server in safe mode.
 		- `C:/server/bin/start-mysql-safe-mode.bat`
 	2. Run commands
-		- For remove password :
+		- For remove password:
 			- `UPDATE user SET password = '' WHERE User = 'root';`
-		- For set password :
+		- For set password:
 
 			```bash
 			mysql -u root -p
@@ -427,10 +427,10 @@ Default login : **root**
 
 ### phpMyAdmin
 
-> **phpMyAdmin-4.X.X-all-languages.zip** in : `C:\server\phpmyadmin`.
+> **phpMyAdmin-4.X.X-all-languages.zip** in: `C:\server\phpmyadmin`.
 
 - Creation of a symbolic link
-	- Execute (only with **cmd** in **Administrator**) : `mklink /D C:\server\www\phpmyadmin C:\server\phpmyadmin`
+	- Execute (only with **cmd** in **Administrator**): `mklink /D C:\server\www\phpmyadmin C:\server\phpmyadmin`
 
 #### Configuration (Automatique)
 
@@ -438,7 +438,7 @@ Default login : **root**
 
 #### Configuration (Manual)
 
-- Execute :
+- Execute:
 	- `cp C:/server/phpmyadmin/config.sample.inc.php C:/server/phpmyadmin/config.inc.php`
 
 - [phpMyAdmin Blowfish Secret Generator](https://www.question-defense.com/tools/phpmyadmin-blowfish-secret-generator)
@@ -536,9 +536,9 @@ Default login : **root**
 	- Create a **user** and **password** in phpMyAdmin for **phpMyAdmin configuration storage** with full privileges for the **phpmyadmin** base.
 		- Change **user** and **password** to *controluser* variable in `config.inc.php`
 
-	- Delete DB (optional) : test
+	- Delete DB (optional): test
 
-	- Create a symbolic link : `mklink /d C:\server\www\phpmyadmin C:\server\phpmyadmin`
+	- Create a symbolic link: `mklink /d C:\server\www\phpmyadmin C:\server\phpmyadmin`
 
 <br>
 
@@ -572,14 +572,14 @@ Default login : **root**
 
 ## Start & Stop all servers
 
-- Start (In admin) : `C:/server/_start.bat`
-- Stop (In admin) : `C:/server/_stop.bat`
+- Start (In admin): `C:/server/_start.bat`
+- Stop (In admin): `C:/server/_stop.bat`
 
 <br>
 
 ## For future update ?
 
-1. Execute :
+1. Execute:
     ```bash
     cd C:/server
     git pull
@@ -593,9 +593,9 @@ Default login : **root**
 
 1. Backup your DB(s) and project(s)
 2. Kill all services
-3. Remove entry your PATH system variable :
+3. Remove entry your PATH system variable:
     - C:\server\mysql\bin
     - C:\server\nginx
     - C:\server\php
-4. `C:/server/mysql/bin/mysqld.exe --remove`
+4. Remove MySQL service (in admin): `C:/server/mysql/bin/mysqld.exe --remove`
 5. Restart your system.
