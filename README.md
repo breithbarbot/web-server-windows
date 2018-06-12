@@ -63,6 +63,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.ba
         # C:\server\nginx\conf\nginx.conf
         
         #user  nobody;
+        # Calcul: grep processor /proc/cpuinfo | wc -l
         worker_processes  auto;
         
         error_log  C:/server/var/log/nginx/error.log warn;
@@ -70,6 +71,7 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.ba
         pid        C:/server/var/log/nginx/nginx.pid;
         
         events {
+            # Definition of the maximum number of simultaneous connections (Use the command to know the maximum value of your server: `ulimit -n`)
             worker_connections  1024;
             multi_accept  on;
         }
@@ -84,8 +86,15 @@ Execute : `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.ba
             keepalive_timeout 65;
             types_hash_max_size 2048;
             server_tokens off;
-            client_max_body_size 500M;
             charset utf-8;
+            
+            ##
+            # Buffers
+            ##
+            client_body_buffer_size 10K;
+            client_header_buffer_size 1k;
+            client_max_body_size 500M;
+            large_client_header_buffers 2 1k;
             
             include       mime.types;
             default_type  application/octet-stream;
