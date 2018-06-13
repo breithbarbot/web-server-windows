@@ -1,6 +1,6 @@
 # Web Server for Windows
 
-> A simple web server for windows with PHP, Nginx, MariaDB and phpMyAdmin.
+> A simple web server for windows with Nginx, PHP, MariaDB and phpMyAdmin.
 
 <br>
 
@@ -56,6 +56,8 @@ Restart your system.
 
 Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak`
 
+#### Configuration
+
 - Edit/create nginx files in: "C:\server\nginx"
     - [Core functionality](http://nginx.org/en/docs/ngx_core_module.html)
 	- Edit:
@@ -83,6 +85,7 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
             sendfile on;
             #tcp_nopush on;
             #tcp_nodelay on;
+            #keepalive_timeout  0;
             keepalive_timeout 65;
             types_hash_max_size 2048;
             server_tokens off;
@@ -102,11 +105,11 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
             ##
             # Logging Settings
             ##
-            log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                              '$status $body_bytes_sent "$http_referer" '
-                              '"$http_user_agent" "$http_x_forwarded_for"';
+            #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+            #                  '$status $body_bytes_sent "$http_referer" '
+            #                  '"$http_user_agent" "$http_x_forwarded_for"';
             
-            access_log C:/server/var/log/nginx/http_access.log main;
+            #access_log C:/server/var/log/nginx/http_access.log main;
             error_log C:/server/var/log/nginx/http_error.log warn;
             
             ##
@@ -165,7 +168,7 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
                 deny  all;
             }
             
-            access_log  C:/server/var/log//nginx/localhost.access.log;
+            #access_log  C:/server/var/log//nginx/localhost.access.log;
             error_log  C:/server/var/log//nginx/localhost.error.log warn;
         }
         ```
@@ -215,6 +218,8 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
 
 Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
+#### Configuration
+
 - [List of Supported Timezones](https://secure.php.net/manual/en/timezones.php)
 - Edit:
     ```ini
@@ -245,7 +250,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     session.gc_maxlifetime = 18000
     
     [soap]
-    soap.wsdl_cache_dir = "C:\server\var\tmp"
+    soap.wsdl_cache_dir="C:\server\var\tmp"
     ```
 
 #### cURL / SSL
@@ -263,7 +268,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     curl.cainfo = "C:\server\php\extras\ssl\cacert.pem"
     
     [openssl]
-    openssl.cafile = "C:\server\php\extras\ssl\cacert.pem"
+    openssl.cafile="C:\server\php\extras\ssl\cacert.pem"
     ```
 
 #### OPCache
@@ -279,7 +284,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     opcache.memory_consumption=256
     opcache.interned_strings_buffer=16
     opcache.max_accelerated_files=30000
-    opcache.error_log = "C:\server\var\log\php_opcache_errors.log"
+    opcache.error_log="C:\server\var\log\php_opcache_errors.log"
     ```
 
 #### APCu
@@ -339,44 +344,45 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 > **mariadb-10.X.X-winx64.zip** in: `C:\server\mysql`.
 
-- Execute:
-	- `cp C:/server/mysql/my-huge.ini C:/server/mysql/bin/my.ini`
-	- `rm -fr C:/server/mysql/data/*`
+- [Documentation](https://mariadb.com/kb/en/library/documentation/)
 
+#### Installation
+```bash
+# Execute in admin!
+
+C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --service=MySQL
+```
+
+- MySQL service is create!
+    - Start (admin): `net start MySQL`
+    - Stop (admin): `net stop MySQL`
+
+- For remove MySQL a service (In admin)
+    - `C:/server/mysql/bin/mysqld.exe --remove`
+
+#### Configuration
 - Edit:
     ```ini
-    ; C:\server\mysql\bin\my.ini
-    
-    [client]
-    socket		= C:/server/var/tmp/mysql.sock
-    
-    # Here follows entries for some specific programs
-    plugin-dir=C:/server/mysql/lib/plugin
+    ; C:\server\mysql\data\my.ini
     
     [mysqld]
+    datadir=C:/server/mysql/data
     
-    socket		= C:/server/var/tmp/mysql.sock
+    tmpdir=C:/server/var/tmp
     
-    # Point the following paths to a dedicated disk
-    tmpdir		= C:/server/var/tmp
+    long_query_time=5
     
-    # Uncomment the following if you are using InnoDB tables
-    innodb_data_home_dir = C:/server/mysql/data
-    #innodb_data_file_path = ibdata1:200M;ibdata2:10M:autoextend
-    innodb_log_group_home_dir = C:/server/mysql/data
-    # You can set .._buffer_pool_size up to 50 - 80 %
-    # of RAM but beware of setting memory usage too high
-    #innodb_buffer_pool_size = 384M
-    #innodb_additional_mem_pool_size = 20M
-    # Set .._log_file_size to 25 % of buffer pool size
-    #innodb_log_file_size = 100M
-    #innodb_log_buffer_size = 8M
-    #innodb_flush_log_at_trx_commit = 1
-    #innodb_lock_wait_timeout = 50
+    key_buffer_size=128M
+    table_cache=256
+    sort_buffer_size=4M
+    read_buffer_size=1M
+    table_open_cache=512
     
-    collation-server     = utf8mb4_general_ci
-    character-set-server = utf8mb4
-    datadir = C:/server/mysql/data
+    collation-server=utf8mb4_general_ci
+    character-set-server=utf8mb4
+    
+    [client]
+    plugin-dir=C:/server/mysql/lib/plugin
     ```
 
 - Edit:
@@ -388,29 +394,13 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     extension=pdo_mysql
     ```
 
-- For install MySQL a service (In admin)
-    - `C:/server/mysql/bin/mysqld.exe --install MySQL --defaults-file=C:/server/mysql/bin/my.ini`
-
-- For remove MySQL a service (In admin)
-    - `C:/server/mysql/bin/mysqld.exe --remove`
-
-- Install DB:
-    - `C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data`
-
-- Run:
-    - Start: `net start mysql`
-    - Stop: `net stop mysql`
-
-Default login: **root**
-
 <br>
 
+- Default login: **root**/<no_password>
 - For set password or null/empty password ?
-	1. Start *mysql* server in safe mode.
+	1. Start *mysql* server **in admin** in safe mode.
 		- `C:/server/bin/start-mysql-safe-mode.bat`
 	2. Run commands
-		- For remove password:
-			- `UPDATE user SET password = '' WHERE User = 'root';`
 		- For set password:
 
 			```bash
@@ -421,7 +411,15 @@ Default login: **root**
 			FLUSH PRIVILEGES;
 			quit;
 			```
+		- For remove password:
+			- `UPDATE user SET password = '' WHERE User = 'root';`
 	3. Stop ant restart *mysql*.
+
+#### Debug?
+
+```bash
+C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log-error=C:/server/var/log/mysql/ --console
+```
 
 <br>
 
@@ -430,7 +428,7 @@ Default login: **root**
 > **phpMyAdmin-4.X.X-all-languages.zip** in: `C:\server\phpmyadmin`.
 
 - Creation of a symbolic link
-	- Execute (only with **cmd** in **Administrator**): `mklink /D C:\server\www\phpmyadmin C:\server\phpmyadmin`
+	- Execute (In **cmd** in **Administrator**): `mklink /D C:\server\www\phpmyadmin C:\server\phpmyadmin`
 
 #### Configuration (Automatique)
 
@@ -468,7 +466,7 @@ Default login: **root**
     $cfg['Servers'][$i]['host'] = 'localhost';
     $cfg['Servers'][$i]['compress'] = false;
     $cfg['Servers'][$i]['user'] = 'root';
-    $cfg['Servers'][$i]['password'] = '';
+    // $cfg['Servers'][$i]['password'] = '';
     $cfg['Servers'][$i]['AllowNoPassword'] = true;
     
     /**
@@ -526,19 +524,32 @@ Default login: **root**
 
     <br>
 
-    - `mkdir C:\server\phpmyadmin\import`
-    - `mkdir C:\server\phpmyadmin\save`
+    - Run:
+    ```bash
+    mkdir C:\server\phpmyadmin\import
+    mkdir C:\server\phpmyadmin\save
+    ```
 
     <br>
 
     - Run: `C:/server/mysql/bin/mysql.exe -u root < C:/server/phpmyadmin/sql/create_tables.sql`
 
 	- Create a **user** and **password** in phpMyAdmin for **phpMyAdmin configuration storage** with full privileges for the **phpmyadmin** base.
-		- Change **user** and **password** to *controluser* variable in `config.inc.php`
+		- Update/Edit **user** and **password** to *controluser* variable in `config.inc.php`
 
-	- Delete DB (optional): test
+	- Delete DB (optional): **test**
+	
+	<br>
+	
+	- Optimisation
+	    - http://localhost/phpmyadmin/server_status_advisor.php
 
-	- Create a symbolic link: `mklink /d C:\server\www\phpmyadmin C:\server\phpmyadmin`
+<br>
+
+## Start & Stop all servers
+
+- Start (In admin): `C:/server/_start.bat`
+- Stop (In admin): `C:/server/_stop.bat`
 
 <br>
 
@@ -570,11 +581,6 @@ Default login: **root**
     mysqlnd.collect_memory_statistics = Off
 	```
 
-## Start & Stop all servers
-
-- Start (In admin): `C:/server/_start.bat`
-- Stop (In admin): `C:/server/_stop.bat`
-
 <br>
 
 ## For future update ?
@@ -584,7 +590,6 @@ Default login: **root**
     cd C:/server
     git pull
     ```
-
 2. Comparison between your config and the README.md doc
 
 <br>
