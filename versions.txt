@@ -4,5 +4,5 @@ APCu=5.1.11
 Xdebug=2.6.0
 Composer=1.6.5
 Nginx=1.14.0
-MariaDB=10.2.15
+MariaDB=10.3.7
 phpMyAdmin=4.8.1
