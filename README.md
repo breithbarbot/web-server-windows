@@ -298,7 +298,9 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     [apcu]
     extension=apcu
     apc.enabled=1
+    apc.enable_cli=1
     apc.shm_size=64M
+    apc.ttl=3600  
     ```
 
 #### Sendmail
@@ -331,6 +333,11 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     
     [Xdebug]
     zend_extension=xdebug
+    xdebug.scream = 1
+    xdebug.profiler_enable_trigger = 1
+    xdebug.profiler_output_dir = "C:/server/var/tmp/profiler"
+    xdebug.remote_host=127.0.0.1
+    xdebug.remote_port=9000
     
     ; Display all the tree
     xdebug.var_display_max_depth = -1
@@ -368,6 +375,8 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
     [mysqld]
     datadir=C:/server/mysql/data
     
+    socket=C:/server/var/tmp/mysql.sock
+    
     tmpdir=C:/server/var/tmp
     
     long_query_time=5
@@ -377,11 +386,16 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
     sort_buffer_size=4M
     read_buffer_size=1M
     table_open_cache=512
+    query_cache_limit=16M
+    
+    query_cache_type=1
+    query_cache_size=36M
     
     collation-server=utf8mb4_general_ci
     character-set-server=utf8mb4
     
     [client]
+    socket=C:/server/var/tmp/mysql.sock
     plugin-dir=C:/server/mysql/lib/plugin
     ```
 
