@@ -541,10 +541,11 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
     <br>
 
     - Run:
-    ```bash
-    mkdir C:\server\phpmyadmin\import
-    mkdir C:\server\phpmyadmin\save
-    ```
+
+        ```bash
+        mkdir C:\server\phpmyadmin\import
+        mkdir C:\server\phpmyadmin\save
+        ```
 
     <br>
 
@@ -607,10 +608,12 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
 ## For future update ?
 
 1. Execute:
+
     ```bash
     cd C:/server
     git pull
     ```
+
 2. Comparison between your config and the README.md doc
 
 <br>
