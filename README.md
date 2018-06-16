@@ -490,8 +490,8 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
     /* User used to manipulate with storage */
     // $cfg['Servers'][$i]['controlhost'] = '';
     // $cfg['Servers'][$i]['controlport'] = '';
-    $cfg['Servers'][$i]['controluser'] = 'phpmyadmin';
-    $cfg['Servers'][$i]['controlpass'] = 'vhYSsFuTa6qx';
+    $cfg['Servers'][$i]['controluser'] = 'pma';
+    $cfg['Servers'][$i]['controlpass'] = 'pmapass';
     
     /* Storage database and tables */
     $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
