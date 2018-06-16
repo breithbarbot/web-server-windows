@@ -117,7 +117,7 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
             ##
             # Virtual Host Configs
             ##
-            include  /etc/nginx/conf.d/*.conf;
+            include  C:/server/nginx/conf/conf.d/*.conf;
         }
         ```
 
@@ -339,7 +339,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     xdebug.profiler_enable_trigger = 1
     xdebug.profiler_output_dir = "C:/server/var/tmp/profiler"
     xdebug.remote_host=127.0.0.1
-    xdebug.remote_port=9000
+    xdebug.remote_port=9001
     
     ; Display all the tree
     xdebug.var_display_max_depth = -1

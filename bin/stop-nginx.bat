@@ -7,7 +7,7 @@ if "%errorlevel%" EQU "0" (
 	echo "Process (%prg%) stoping..."
 
 	cd "C:/server/nginx"
-	nginx.exe -s quit
+	%prg% -s quit
 ) else (
     echo "Process (%prg%) is not currently running."
 )

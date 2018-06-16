@@ -7,12 +7,12 @@ echo ------------------------
 echo.
 echo.
 
-call "C:\server\bin\start-php-fcgi.bat"
-
-echo.
-echo.
-
 call "C:\server\bin\start-nginx.bat"
+
+echo.
+echo.
+
+call "C:\server\bin\start-php-fcgi.bat"
 
 echo.
 echo.
