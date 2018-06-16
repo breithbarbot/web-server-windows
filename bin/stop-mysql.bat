@@ -1,15 +1,15 @@
 @echo off
-echo Stoping MySQL...
 :: https://dev.mysql.com/doc/refman/5.7/en/windows-start-command-line.html
 :: Future mistake? https://dev.mysql.com/doc/refman/5.7/en/replication-howto-additionalslaves.html
-set prg=mysqld.exe
-QPROCESS "%prg%">NUL
-if "%errorlevel%" EQU "0" (
-	echo "Process (%prg%) stoping..."
+echo Stoping MySQL...
 
-	::cd "C:/server/mysql/bin"
-	::mysqladmin.exe -u root shutdown
-	net stop mysql
+net stop mysql
+
+set prg=mysqld.exe
+if "%errorlevel%" GTR "2" (
+	echo "Process (%prg%) could not stop service."
+) else if "%errorlevel%" GTR "0" (
+	echo "Process (%prg%) already stopping!"
 ) else (
-    echo "Process (%prg%) is not currently running."
+	echo "Process (%prg%) service successfully stopped."
 )

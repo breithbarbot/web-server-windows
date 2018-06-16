@@ -1,13 +1,12 @@
 @echo off
 echo Starting MySQL (Safe mode)...
-set prg=mysqld.exe
-QPROCESS "%prg%">NUL
-if "%errorlevel%" GTR "0" (
-	echo "Process (%prg%) starting..."
 
-	net stop mysql
+net stop mysql
+
+set prg=mysqld.exe
+if "%errorlevel%" GTR "2" (
+	echo "Process (%prg%) could not stop service."
+) else (
 	cd "C:/server/mysql/bin"
 	%prg% --safe-mode --skip-grant-tables --log-basename=C:/server/var/log/mysql --console
-) else (
-	echo "Process (%prg%) already starting..."
 )
