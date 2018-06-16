@@ -411,7 +411,7 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
 <br>
 
 - Default login: **root**/<no_password>
-- For set password or null/empty password ?
+- For set password or unset password ?
 	1. Start *mysql* server **in admin** in safe mode.
 		- `C:/server/bin/start-mysql-safe-mode.bat`
 	2. Run commands
@@ -425,7 +425,7 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
 			FLUSH PRIVILEGES;
 			quit;
 			```
-		- For remove password:
+		- For unset password:
 			- `UPDATE user SET password = '' WHERE User = 'root';`
 	3. Stop ant restart *mysql*.
 
@@ -548,8 +548,8 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
 
     - Run: `C:/server/mysql/bin/mysql.exe -u root < C:/server/phpmyadmin/sql/create_tables.sql`
 
-	- Create a **user** and **password** in phpMyAdmin for **phpMyAdmin configuration storage** with full privileges for the **phpmyadmin** base.
-		- Update/Edit **user** and **password** to *controluser* variable in `config.inc.php`
+	- Create a new **user/password** in phpMyAdmin for **phpMyAdmin configuration storage** with full privileges (without **GRANT** access) for the **phpmyadmin** database.
+		- Update `$cfg['Servers'][$i]['controluser']` and `$cfg['Servers'][$i]['controlpass']` variables in `config.inc.php`
 
 	- Delete DB (optional): **test**
 	
