@@ -101,7 +101,7 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
             gzip             on;
             gzip_proxied     any;
             gzip_comp_level  6;
-            gzip_types       text/html text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+            gzip_types       text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
             
             
             ##
@@ -170,12 +170,11 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
         
         
         #access_log  C:/server/var/log//nginx/localhost.access.log;
-        error_log  C:/server/var/log//nginx/localhost.error.log warn;
+        error_log   C:/server/var/log//nginx/localhost.error.log warn;
     }
     ```
 
-- **DEPRECATED !** Use [PHP's built-in Web Server](https://symfony.com/doc/current/setup/built_in_web_server.html)
-- Create:
+- Create (**DEPRECATED !** Use [PHP's built-in Web Server](https://symfony.com/doc/current/setup/built_in_web_server.html)):
     ```nginx
     # C:\server\nginx\conf\conf.d\symfony.conf
 
@@ -190,12 +189,12 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
         
         
         location ~ /(app|app_dev|config|public/index)\.php(/|$) {
-            fastcgi_pass   127.0.0.1:9000;
-            fastcgi_split_path_info ^(.+\.php)(/.*)$;
-            include fastcgi_params;
-        
-            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-            fastcgi_param DOCUMENT_ROOT $realpath_root;
+            fastcgi_pass             127.0.0.1:9000;
+            fastcgi_index            index.php;
+            fastcgi_param            SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+            fastcgi_param            DOCUMENT_ROOT $realpath_root;
+            fastcgi_split_path_info  ^(.+\.php)(/.*)$;
+            include                  fastcgi_params;
         }
         
         
@@ -209,7 +208,7 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
         }
         
         
-        error_log   C:/server/var/log//nginx/localhost.symfony.error.log;
+        #error_log   C:/server/var/log//nginx/localhost.symfony.error.log;
         access_log  C:/server/var/log//nginx/localhost.symfony.access.log;
     }
     ```
@@ -251,7 +250,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     
     [Session]
     session.save_path = "C:\server\var\tmp"
-    session.gc_maxlifetime = 18000
+    session.gc_maxlifetime = 86400
     
     [soap]
     soap.wsdl_cache_dir="C:\server\var\tmp"
@@ -337,7 +336,6 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     
     [Xdebug]
     zend_extension=xdebug
-    xdebug.scream = 1
     xdebug.profiler_enable_trigger = 1
     xdebug.profiler_output_dir = "C:/server/var/tmp/profiler"
     xdebug.remote_host=127.0.0.1
@@ -592,11 +590,16 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
     
     [PHP]
     expose_php = Off
-    error_reporting = Off
+    error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
+    display_errors = Off
+    display_startup_errors = Off
     
     [mysqlnd]
     mysqlnd.collect_statistics = Off
     mysqlnd.collect_memory_statistics = Off
+    
+    [Assertion]
+    zend.assertions = -1  
 	```
 
 <br>
