@@ -58,8 +58,8 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
 
 #### Configuration
 
-- Edit/create nginx files in: "C:\server\nginx"
-    - [Core functionality](http://nginx.org/en/docs/ngx_core_module.html)
+- Edit nginx files:
+    - [nginx documentation](http://nginx.org/en/docs/)
 	- Edit:
         ```nginx
         # C:\server\nginx\conf\nginx.conf
@@ -69,146 +69,150 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
         worker_processes  auto;
         
         error_log  C:/server/var/log/nginx/error.log warn;
-        
         pid        C:/server/var/log/nginx/nginx.pid;
         
         events {
             # Definition of the maximum number of simultaneous connections (Use the command to know the maximum value of your server: `ulimit -n`)
             worker_connections  1024;
-            multi_accept  on;
+            multi_accept        on;
         }
         
         http {
             ##
-            # Basic Settings
+            # ngx_http_charset_module
             ##
-            sendfile on;
-            #tcp_nopush on;
-            #tcp_nodelay on;
-            #keepalive_timeout  0;
-            keepalive_timeout 65;
-            types_hash_max_size 2048;
-            server_tokens off;
-            charset utf-8;
+            charset  utf-8;
+            
             
             ##
-            # Buffers
+            # ngx_http_core_module
             ##
-            client_body_buffer_size 10K;
-            client_header_buffer_size 1k;
-            client_max_body_size 500M;
-            large_client_header_buffers 2 1k;
+            client_max_body_size  500M;
+            include               mime.types;
+            default_type          application/octet-stream;
+            keepalive_timeout     65s;
+            sendfile              on;
+            #tcp_nopush           on;
             
-            include       mime.types;
-            default_type  application/octet-stream;
             
             ##
-            # Logging Settings
+            # ngx_http_gzip_module
+            ##
+            gzip             on;
+            gzip_proxied     any;
+            gzip_comp_level  6;
+            gzip_types       text/html text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+            
+            
+            ##
+            # ngx_http_log_module
             ##
             #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
             #                  '$status $body_bytes_sent "$http_referer" '
             #                  '"$http_user_agent" "$http_x_forwarded_for"';
+            #access_log        C:/server/var/log/nginx/http_access.log  main;
+            error_log          C:/server/var/log/nginx/http_error.log  warn;
             
-            #access_log C:/server/var/log/nginx/http_access.log main;
-            error_log C:/server/var/log/nginx/http_error.log warn;
-            
-            ##
-            # Gzip Settings
-            ##
-            gzip  on;
-            gzip_proxied any;
-            gzip_comp_level 6;
-            gzip_min_length 1100;
-            gzip_buffers 16 8k;
-            gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
             
             ##
             # Virtual Host Configs
             ##
-            include C:/server/nginx/conf/conf.d/*.conf;
+            include  /etc/nginx/conf.d/*.conf;
         }
         ```
 
-    - Create:
-        ```nginx
-        # C:\server\nginx\conf\conf.d\default.conf
+##### Virtual Host
 
-        # HTTP Server
-        server {
-            listen       80;
-            server_name  localhost;
-            
-            root   c:/server/www;
-            
-            location / {
-                index  index.html index.htm index.php;
-            }
-            
-            # redirect server error pages to the static page /50x.html
-            #
-            error_page   500 502 503 504  /50x.html;
-            location = /50x.html {
-                root   html;
-            }
-            
-            # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-            #
-            location ~ \.php$ {
-                fastcgi_pass   127.0.0.1:9000;
-                fastcgi_index  index.php;
-                fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
-                include        fastcgi_params;
-            }
-            
-            
-            # deny access to .htaccess files, if Apache's document root
-            # concurs with nginx's one
-            #
-            location ~ /\.ht {
-                deny  all;
-            }
-            
-            #access_log  C:/server/var/log//nginx/localhost.access.log;
-            error_log  C:/server/var/log//nginx/localhost.error.log warn;
+> Place your configuration files in the `conf.d` directory.
+
+- Create:
+    ```nginx
+    # C:\server\nginx\conf\conf.d\default.conf
+
+    # HTTP Server
+    server {
+        listen       80;
+        server_name  localhost;
+        
+        
+        root   c:/server/www;
+        
+        
+        location / {
+            index  index.html index.htm index.php;
         }
-        ```
-
-	- **DEPRECATED !** Use [PHP's built-in Web Server](https://symfony.com/doc/current/setup/built_in_web_server.html)
-    - Create:
-	    ```nginx
-	    # C:\server\nginx\conf\conf.d\symfony.conf
-
-        # For Symfony 2/3/4 apps
+        
+        
+        # redirect server error pages to the static page /50x.html
         #
-        server {
-            listen       81;
-            server_name  localhost;
-            
-            root   c:/server/www;
-            
-            charset utf-8;
-            
-            location ~ /(app|app_dev|config|public/index)\.php(/|$) {
-                fastcgi_pass   127.0.0.1:9000;
-                fastcgi_split_path_info ^(.+\.php)(/.*)$;
-                include fastcgi_params;
-            
-                fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-                fastcgi_param DOCUMENT_ROOT $realpath_root;
-            }
-            
-            location ~ \.php$ {
-                return 404;
-            }
-            
-            location ~ /\.ht {
-                deny  all;
-            }
-            
-            error_log  C:/server/var/log//nginx/localhost.symfony.error.log;
-            access_log  C:/server/var/log//nginx/localhost.symfony.access.log;
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
         }
-	    ```
+        
+        
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+        
+        
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        location ~ /\.ht {
+            deny  all;
+        }
+        
+        
+        #access_log  C:/server/var/log//nginx/localhost.access.log;
+        error_log  C:/server/var/log//nginx/localhost.error.log warn;
+    }
+    ```
+
+- **DEPRECATED !** Use [PHP's built-in Web Server](https://symfony.com/doc/current/setup/built_in_web_server.html)
+- Create:
+    ```nginx
+    # C:\server\nginx\conf\conf.d\symfony.conf
+
+    # For Symfony 2/3/4 apps
+    #
+    server {
+        listen       81;
+        server_name  localhost;
+        
+        
+        root  C:/server/www;
+        
+        
+        location ~ /(app|app_dev|config|public/index)\.php(/|$) {
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_split_path_info ^(.+\.php)(/.*)$;
+            include fastcgi_params;
+        
+            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            fastcgi_param DOCUMENT_ROOT $realpath_root;
+        }
+        
+        
+        location ~ \.php$ {
+            return 404;
+        }
+        
+        
+        location ~ /\.ht {
+            deny  all;
+        }
+        
+        
+        error_log   C:/server/var/log//nginx/localhost.symfony.error.log;
+        access_log  C:/server/var/log//nginx/localhost.symfony.access.log;
+    }
+    ```
 
 <br>
 
