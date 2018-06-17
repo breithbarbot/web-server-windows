@@ -256,6 +256,11 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     soap.wsdl_cache_dir="C:\server\var\tmp"
     ```
 
+#### PEAR
+
+- Create folder: `mkdir C:\server\php\pear`
+- [PEAR Packages](https://pear.php.net/packages.php)
+
 #### cURL / SSL
 
 - Download: https://curl.haxx.se/docs/caextract.html
