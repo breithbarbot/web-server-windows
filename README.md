@@ -410,7 +410,7 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
     ```ini
     ; C:\server\php\php.ini
     
-    [Xdebug]
+    [PHP]
     extension=mysqli
     extension=pdo_mysql
     ```
