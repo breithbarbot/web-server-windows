@@ -1,8 +1,0 @@
-PHP=7.2.6
-cURL=7.60.0
-APCu=5.1.11
-Xdebug=2.6.0
-Composer=1.6.5
-Nginx=1.14.0
-MariaDB=10.3.7
-phpMyAdmin=4.8.1
