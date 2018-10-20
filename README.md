@@ -541,6 +541,7 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
     $cfg['Import']['charset'] = 'utf-8';
     $cfg['Export']['compression'] = 'gzip';
     $cfg['Export']['charset'] = 'utf-8';
+    $cfg['NavigationTreeEnableGrouping'] = false;
     ```
 
     <br>
