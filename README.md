@@ -622,7 +622,7 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
   
     openssl dhparam 2048 > dhparam.pem
     ```
-3. Add new virtual host config in `C:\server\nginx\conf\conf.d` folder:
+3. Add new virtual host config in `C:\server\nginx\conf\conf.d\app.localhost.conf` file:
     ```
     # HTTPS Server
     server {
