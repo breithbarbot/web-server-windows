@@ -611,12 +611,55 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
 
 <br>
 
+## Active HTTPS (optional)
+
+1. Create `ssl` folder in nginx folder and generate keys:
+2. Execute:
+    ```bash
+    mkdir C:\server\nginx\ssl
+
+    openssl req -x509 -sha256 -nodes -newkey rsa:2048 -days 365 -keyout localhost.key -out localhost.crt
+  
+    openssl dhparam 2048 > dhparam.pem
+    ```
+3. Add new virtual host config in `C:\server\nginx\conf\conf.d` folder:
+    ```
+    # HTTPS Server
+    server {
+        listen               443 ssl http2 default_server;
+        listen               [::]:443 ssl http2 default_server;
+        server_name          app.localhost;
+        ssl                  on;
+        ssl_certificate      c:/server/nginx/ssl/localhost.crt;
+        ssl_certificate_key  c:/server/nginx/ssl/localhost.key;
+    
+        # Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+    	ssl_dhparam c:/server/nginx/ssl/dhparam.pem;
+    
+    	# secure settings (A+ at SSL Labs ssltest at time of writing)
+    	# see https://wiki.mozilla.org/Security/Server_Side_TLS#Nginx
+    	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    	ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-CAMELLIA256-SHA:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-SEED-SHA:DHE-RSA-CAMELLIA128-SHA:HIGH:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS';
+    	ssl_prefer_server_ciphers on;
+    
+        # ...
+    }
+    ```
+4. Add new redirect in `C:\Windows\System32\drivers\etc\hosts` file:
+    ```
+    127.0.0.1       app.localhost
+    ::1             app.localhost
+    ```
+5. Open: https://app.localhost/
+
+<br>
+
 ## For future update ?
 
 1. Execute:
 
     ```bash
-    cd C:/server
+    cd C:\server
     git pull
     ```
 
