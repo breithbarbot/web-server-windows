@@ -386,17 +386,15 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
     
     tmpdir=C:/server/var/tmp
     
-    long_query_time=5
+    long_query_time=10
     
-    key_buffer_size=128M
-    table_cache=256
+    key_buffer_size=256M
     sort_buffer_size=4M
-    read_buffer_size=1M
-    table_open_cache=512
-    query_cache_limit=16M
+    read_buffer_size=2M
+    table_open_cache=400
     
-    query_cache_type=1
-    query_cache_size=36M
+    query_cache_limit=16M
+    query_cache_size=64M
     
     collation-server=utf8mb4_general_ci
     character-set-server=utf8mb4
