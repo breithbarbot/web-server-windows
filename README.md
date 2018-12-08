@@ -586,6 +586,8 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
         server_tokens off;
     }
     ```
+    
+    - Disabled `access_log` in your vhosts
 
 #### PHP
 
