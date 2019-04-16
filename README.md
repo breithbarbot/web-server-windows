@@ -5,14 +5,14 @@
 <br>
 
 - Nginx
-- PHP (Recommanded PHP >= 7.2)
+- PHP (Recommanded PHP >= 7.3.X)
 	- cURL
 	- OPCache
 	- APCu
 	- Sendmail
 	- Composer
 - MariaDB
-- phpMyAdmin (Recommanded phpMyAdmin >= 4.7.7)
+- phpMyAdmin (Recommanded phpMyAdmin >= 4.8.X)
 	- With config for *phpMyAdmin configuration storage*
 
 <br>
@@ -32,7 +32,7 @@ git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 	- **C:\server\nginx**: [Nginx](http://nginx.org/en/download.html)
 	- **C:\server\php**: [[Recommanded PHP 7.2] PHP (x64 Thread Safe)](http://windows.php.net/download)
 		- The VC15 builds require to have the Visual C++ Redistributable for [Visual Studio 2017 x64](https://aka.ms/vs/15/release/VC_redist.x64.exe)
-	- **C:\server\mysql**: [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
+	- **C:\server\mariadb**: [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
 	- **C:\server\phpmyadmin**: [phpMyAdmin](https://www.phpmyadmin.net/downloads)
 
 <br>
@@ -42,7 +42,7 @@ git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 ### General
 
 - Update your PATH system variable
-    - `C:\server\mysql\bin`
+    - `C:\server\mariadb\bin`
 	- `C:\server\nginx`
 	- `C:\server\php`
 
@@ -356,7 +356,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 ### MariaDB
 
-> **mariadb-10.X.X-winx64.zip** in: `C:\server\mysql`.
+> **mariadb-10.X.X-winx64.zip** in: `C:\server\mariadb`.
 
 - [Documentation](https://mariadb.com/kb/en/library/documentation/)
 
@@ -377,7 +377,7 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
 #### Configuration
 - Edit:
     ```ini
-    ; C:\server\mysql\data\my.ini
+    ; C:\server\mariadb\data\my.ini
     
     [mysqld]
     datadir=C:/server/mysql/data
@@ -672,7 +672,7 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
 1. Backup your DB(s) and project(s)
 2. Kill all services
 3. Remove entry your PATH system variable:
-    - C:\server\mysql\bin
+    - C:\server\mariadb\bin
     - C:\server\nginx
     - C:\server\php
 4. Remove MySQL service (in admin): `C:/server/mysql/bin/mysqld.exe --remove`

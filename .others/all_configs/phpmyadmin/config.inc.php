@@ -11,22 +11,22 @@
  */
 
 /**
-* This is needed for cookie based authentication to encrypt password in
-* cookie. Needs to be 32 chars long.
-*/
-$cfg['blowfish_secret'] = 'e]4N]xz3v)}Std~*9P8tiwm2}LbEdgyN~+hjJM'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+ * This is needed for cookie based authentication to encrypt password in
+ * cookie. Needs to be 32 chars long.
+ */
+$cfg['blowfish_secret'] = ''; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
 /**
-* Servers configuration
-*/
+ * Servers configuration
+ */
 $i = 0;
 
 /**
-* Server: localhost
-*/
+ * First server
+ */
 $i++;
 /* Authentication type */
-$cfg['Servers'][$i]['auth_type'] = 'config';
+$cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
 $cfg['Servers'][$i]['hide_db'] = 'information_schema|mysql|performance_schema|phpmyadmin';
 $cfg['Servers'][$i]['host'] = 'localhost';
@@ -36,8 +36,8 @@ $cfg['Servers'][$i]['user'] = 'root';
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
 
 /**
-* phpMyAdmin configuration storage settings.
-*/
+ * phpMyAdmin configuration storage settings.
+ */
 
 /* User used to manipulate with storage */
 // $cfg['Servers'][$i]['controlhost'] = '';
@@ -68,12 +68,12 @@ $cfg['Servers'][$i]['designer_settings'] = 'pma__designer_settings';
 $cfg['Servers'][$i]['export_templates'] = 'pma__export_templates';
 
 /**
-* End of servers configuration
-*/
+ * End of servers configuration
+ */
 
 /**
-* Directories for saving/loading files from server
-*/
+ * Directories for saving/loading files from server
+ */
 $cfg['UploadDir'] = 'import';
 $cfg['SaveDir'] = 'save';
 
@@ -117,7 +117,7 @@ $cfg['MaxRows'] = 50;
  * default = 'en'
  */
 //$cfg['DefaultLang'] = 'en';
-$cfg['DefaultLang'] = 'fr';
+//$cfg['DefaultLang'] = 'de';
 
 /**
  * How many columns should be used for table display of a database?

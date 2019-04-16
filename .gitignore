@@ -38,8 +38,9 @@ Thumbs.db
 
 # Custom #
 ##########
-/mysql/*
-!/mysql/.gitkeep
+.php_cs.cache
+/mariadb/*
+!/mariadb/.gitkeep
 /nginx/*
 !/nginx/.gitkeep
 /php/*
