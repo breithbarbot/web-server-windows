@@ -30,7 +30,7 @@ git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 ## Download
 - Download the source files and extract to the each respective folder
 	- **C:\server\nginx**: [Nginx](http://nginx.org/en/download.html)
-	- **C:\server\php**: [[Recommanded PHP 7.2] PHP (x64 Thread Safe)](http://windows.php.net/download)
+	- **C:\server\php**: [[Recommanded PHP 7.3.X] PHP (x64 Thread Safe)](http://windows.php.net/download)
 		- The VC15 builds require to have the Visual C++ Redistributable for [Visual Studio 2017 x64](https://aka.ms/vs/15/release/VC_redist.x64.exe)
 	- **C:\server\mariadb**: [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
 	- **C:\server\phpmyadmin**: [phpMyAdmin](https://www.phpmyadmin.net/downloads)
@@ -297,7 +297,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 #### APCu
 
-- Download [7.2 Thread Safe (TS) x64](https://pecl.php.net/package/APCu)
+- Download [7.3 Thread Safe (TS) x64](https://pecl.php.net/package/APCu)
 - Save file in: `C:\server\php\ext\php_apcu.dll`
 - Edit at the end:
     ```ini
@@ -333,7 +333,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 #### Xdebug
 
-- Download [PHP 7.2 VC15 TS (64 bit)](https://xdebug.org/download.php)
+- Download [PHP 7.3 VC15 TS (64 bit)](https://xdebug.org/download.php)
 - Save file in: `C:\server\php\ext\php_xdebug.dll`
 - Add at the end:
     ```ini
@@ -364,15 +364,15 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 ```bash
 # Execute in admin!
 
-C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --service=MySQL
+C:/server/mariadb/bin/mysql_install_db.exe --datadir=C:/server/mariadb/data --service=MariaDB
 ```
 
-- MySQL service is create!
-    - Start (admin): `net start MySQL`
-    - Stop (admin): `net stop MySQL`
+- MariaDB service is create!
+    - Start (admin): `net start MariaDB`
+    - Stop (admin): `net stop MariaDB`
 
-- For remove MySQL a service (In admin)
-    - `C:/server/mysql/bin/mysqld.exe --remove`
+- For remove MariaDB a service (In admin)
+    - `C:/server/mariadb/bin/mysqld.exe --remove`
 
 #### Configuration
 - Edit:
@@ -380,9 +380,9 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
     ; C:\server\mariadb\data\my.ini
     
     [mysqld]
-    datadir=C:/server/mysql/data
+    datadir=C:/server/mariadb/data
     
-    socket=C:/server/var/tmp/mysql.sock
+    socket=C:/server/var/tmp/mariadb.sock
     
     tmpdir=C:/server/var/tmp
     
@@ -400,8 +400,8 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
     character-set-server=utf8mb4
     
     [client]
-    socket=C:/server/var/tmp/mysql.sock
-    plugin-dir=C:/server/mysql/lib/plugin
+    socket=C:/server/var/tmp/mariadb.sock
+    plugin-dir=C:/server/mariadb/lib/plugin
     ```
 
 - Edit:
@@ -417,8 +417,8 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
 
 - Default login: **root**/<no_password>
 - For set password or unset password ?
-	1. Start *mysql* server **in admin** in safe mode.
-		- `C:/server/bin/start-mysql-safe-mode.bat`
+	1. Start *mariadb* server **in admin** in safe mode.
+		- `C:/server/bin/start-mariadb-safe-mode.bat`
 	2. Run commands
 		- For set password:
 
@@ -432,12 +432,12 @@ C:/server/mysql/bin/mysql_install_db.exe --datadir=C:/server/mysql/data --servic
 			```
 		- For unset password:
 			- `UPDATE user SET password = '' WHERE User = 'root';`
-	3. Stop ant restart *mysql*.
+	3. Stop ant restart *mariadb*.
 
 #### Debug?
 
 ```bash
-C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log-error=C:/server/var/log/mysql/ --console
+C:/server/mariadb/bin/mysqld.exe --defaults-file=C:/server/mariadb/data/my.ini --log-error=C:/server/var/log/mariadb/ --console
 ```
 
 <br>
@@ -553,7 +553,7 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
 
     <br>
 
-    - Run: `C:/server/mysql/bin/mysql.exe -u root < C:/server/phpmyadmin/sql/create_tables.sql`
+    - Run: `C:/server/mariadb/bin/mysql.exe -u root < C:/server/phpmyadmin/sql/create_tables.sql`
 
 	- Create a new **user/password** in phpMyAdmin for **phpMyAdmin configuration storage** with full privileges (without **GRANT** access) for the **phpmyadmin** database.
 		- Update `$cfg['Servers'][$i]['controluser']` and `$cfg['Servers'][$i]['controlpass']` variables in `config.inc.php`
@@ -675,5 +675,5 @@ C:/server/mysql/bin/mysqld.exe --defaults-file=C:/server/mysql/data/my.ini --log
     - C:\server\mariadb\bin
     - C:\server\nginx
     - C:\server\php
-4. Remove MySQL service (in admin): `C:/server/mysql/bin/mysqld.exe --remove`
+4. Remove MariaDB service (in admin): `C:/server/mariadb/bin/mysqld.exe --remove`
 5. Restart your system.

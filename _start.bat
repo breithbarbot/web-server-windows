@@ -17,7 +17,7 @@ call "C:\server\bin\start-php-fcgi.bat"
 echo.
 echo.
 
-call "C:\server\bin\start-mysql.bat"
+call "C:\server\bin\start-mariadb.bat"
 
 echo.
 echo.

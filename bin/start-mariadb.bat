@@ -2,9 +2,9 @@
 :: https://dev.mysql.com/doc/refman/5.7/en/windows-start-command-line.html
 :: Future mistake? https://dev.mysql.com/doc/refman/5.7/en/replication-howto-additionalslaves.html
 :: https://mariadb.com/kb/en/library/running-mariadb-from-the-build-directory/
-echo Starting MySQL...
+echo Starting MariaDB...
 
-net start mysql
+net start mariadb
 
 set prg=mysqld.exe
 if "%errorlevel%" GTR "2" (
@@ -16,5 +16,5 @@ if "%errorlevel%" GTR "2" (
 )
 
 :: For debug
-::cd "C:/server/mysql/bin"
-::mysqld.exe --defaults-file=C:/server/mysql/bin/my.ini --log-error=C:/server/var/log/mysql/ --console
+::cd "C:/server/mariadb/bin"
+::mysqld.exe --defaults-file=C:/server/mariadb/bin/my.ini --log-error=C:/server/var/log/mariadb/ --console
