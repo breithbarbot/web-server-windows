@@ -22,4 +22,9 @@ call "C:\server\bin\stop-mariadb.bat"
 echo.
 echo.
 
+call "C:\server\bin\stop-pgsql.bat"
+
+echo.
+echo.
+
 pause

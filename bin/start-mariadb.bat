@@ -16,5 +16,6 @@ if "%errorlevel%" GTR "2" (
 )
 
 :: For debug
-::cd "C:/server/mariadb/bin"
-::mysqld.exe --defaults-file=C:/server/mariadb/bin/my.ini --log-error=C:/server/var/log/mariadb/ --console
+::
+:: cd "C:/server/mariadb/bin"
+:: mysqld.exe --defaults-file=C:/server/mariadb/bin/my.ini --log-error=C:/server/var/log/mariadb/ --console

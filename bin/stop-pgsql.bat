@@ -1,12 +1,13 @@
 @echo off
 echo Stoping PostgreSQL...
-set prg=pg_ctl.exe
-QPROCESS "%prg%">NUL
-if "%errorlevel%" EQU "0" (
-	echo "Process (%prg%) stoping..."
 
-	cd "C:/server/pgsql/bin"
-	%prg% -D ../data -l fichier_de_trace stop
+net stop PostgreSQL
+
+set prg=pg_ctl.exe
+if "%errorlevel%" GTR "2" (
+	echo "Process (%prg%) could not stop service."
+) else if "%errorlevel%" GTR "0" (
+	echo "Process (%prg%) already stopping!"
 ) else (
-    echo "Process (%prg%) is not currently running."
+	echo "Process (%prg%) service successfully stopped."
 )

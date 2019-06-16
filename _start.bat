@@ -22,4 +22,9 @@ call "C:\server\bin\start-mariadb.bat"
 echo.
 echo.
 
+call "C:\server\bin\start-pgsql.bat"
+
+echo.
+echo.
+
 pause

@@ -1,5 +1,4 @@
 # Web Server for Windows
-
 > A simple web server for windows with Nginx, PHP, MariaDB and phpMyAdmin.
 
 <br>
@@ -14,11 +13,11 @@
 - MariaDB
 - phpMyAdmin (Recommanded phpMyAdmin >= 4.8.X)
 	- With config for *phpMyAdmin configuration storage*
+- PostgreSQL + pgAdmin 4
 
 <br>
 
 ## Getting
-
 ```bash
 cmd
 cd C:\
@@ -29,39 +28,36 @@ git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 
 ## Download
 - Download the source files and extract to the each respective folder
-	- **C:\server\nginx**: [Nginx](http://nginx.org/en/download.html)
-	- **C:\server\php**: [[Recommanded PHP 7.3.X] PHP (x64 Thread Safe)](http://windows.php.net/download)
+	- **C:\server\nginx**: [Nginx](https://nginx.org/en/download.html)
+	- **C:\server\php**: [[Recommanded PHP 7.3.X] PHP (x64 Thread Safe)](https://windows.php.net/download)
 		- The VC15 builds require to have the Visual C++ Redistributable for [Visual Studio 2017 x64](https://aka.ms/vs/15/release/VC_redist.x64.exe)
 	- **C:\server\mariadb**: [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
 	- **C:\server\phpmyadmin**: [phpMyAdmin](https://www.phpmyadmin.net/downloads)
+	- **C:\server\pgsql**: [phpMyAdmin](https://www.enterprisedb.com/download-postgresql-binaries)
 
 <br>
 
 ## Configuration
-
 ### General
-
-- Update your PATH system variable
+1. Update your PATH system variable
     - `C:\server\mariadb\bin`
-	- `C:\server\nginx`
-	- `C:\server\php`
+    - `C:\server\nginx`
+    - `C:\server\php`
 
-Restart your system.
+1. Restart your system (or just restart all open terminals).
 
 <br>
 
 ### Nginx
-
 > **nginx-1.X.X.zip** in: `C:\server\nginx`.
 
 Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak`
 
 #### Configuration
-
 - Edit nginx files:
     - [nginx documentation](http://nginx.org/en/docs/)
 	- Edit:
-        ```nginx
+        ```ini
         # C:\server\nginx\conf\nginx.conf
         
         #user  nobody;
@@ -122,11 +118,10 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
         ```
 
 ##### Virtual Host
-
 > Place your configuration files in the `conf.d` directory.
 
 - Create:
-    ```nginx
+    ```ini
     # C:\server\nginx\conf\conf.d\default.conf
 
     # HTTP Server
@@ -174,55 +169,14 @@ Execute: `cp C:\server\nginx\conf\nginx.conf C:\server\nginx\conf\nginx.conf.bak
     }
     ```
 
-- Create (**DEPRECATED !** Use [PHP's built-in Web Server](https://symfony.com/doc/current/setup/built_in_web_server.html)):
-    ```nginx
-    # C:\server\nginx\conf\conf.d\symfony.conf
-
-    # For Symfony 2/3/4 apps
-    #
-    server {
-        listen       81;
-        server_name  localhost;
-        
-        
-        root  C:/server/www;
-        
-        
-        location ~ /(app|app_dev|config|public/index)\.php(/|$) {
-            fastcgi_pass             127.0.0.1:9000;
-            fastcgi_index            index.php;
-            fastcgi_param            SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
-            fastcgi_param            DOCUMENT_ROOT $realpath_root;
-            fastcgi_split_path_info  ^(.+\.php)(/.*)$;
-            include                  fastcgi_params;
-        }
-        
-        
-        location ~ \.php$ {
-            return 404;
-        }
-        
-        
-        location ~ /\.ht {
-            deny  all;
-        }
-        
-        
-        #error_log   C:/server/var/log//nginx/localhost.symfony.error.log;
-        access_log  C:/server/var/log//nginx/localhost.symfony.access.log;
-    }
-    ```
-
 <br>
 
 ### PHP
-
 > **php-7.X.X-Win32-VC15-x64.zip** in: `C:\server\php`.
 
 Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 
 #### Configuration
-
 - [List of Supported Timezones](https://secure.php.net/manual/en/timezones.php)
 - Edit:
     ```ini
@@ -257,12 +211,10 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     ```
 
 #### PEAR
-
 - Create folder: `mkdir C:\server\php\pear`
 - [PEAR Packages](https://pear.php.net/packages.php)
 
 #### cURL / SSL
-
 - Download: https://curl.haxx.se/docs/caextract.html
 - Save file in: **C:\server\php\extras\ssl\cacert.pem**
 - Edit:
@@ -279,8 +231,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     openssl.cafile="C:\server\php\extras\ssl\cacert.pem"
     ```
 
-#### OPCache
-
+#### OPCache (Optional)
 - Edit:
     ```ini
     ; C:\server\php\php.ini
@@ -295,8 +246,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     opcache.error_log="C:\server\var\log\php_opcache_errors.log"
     ```
 
-#### APCu
-
+#### APCu (Optional)
 - Download [7.3 Thread Safe (TS) x64](https://pecl.php.net/package/APCu)
 - Save file in: `C:\server\php\ext\php_apcu.dll`
 - Edit at the end:
@@ -311,8 +261,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     apc.ttl=3600  
     ```
 
-#### Sendmail
-
+#### Sendmail (Optional)
 - Download: https://www.glob.com.au/sendmail/
     - Copy all files in: **C:\server\sendmail**
 - Edit:
@@ -325,14 +274,12 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 - Edit file: `C:\server\sendmail\sendmail.ini`
 
 #### Composer
-
 - Download and install: https://getcomposer.org/download/
 	- The default installation folder/file is: **C:\ProgramData\ComposerSetup\bin\composer.phar**
 	- If you have this error during install: **Signature mismatch, could not verify the phar file integrity**
 		- Comment temporarily: `zend_extension=opcache` in *C:\server\php\php.ini*, run Composer install and after, uncomment.
 
-#### Xdebug
-
+#### Xdebug (Optional)
 - Download [PHP 7.3 VC15 TS (64 bit)](https://xdebug.org/download.php)
 - Save file in: `C:\server\php\ext\php_xdebug.dll`
 - Add at the end:
@@ -355,24 +302,19 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 <br>
 
 ### MariaDB
-
 > **mariadb-10.X.X-winx64.zip** in: `C:\server\mariadb`.
 
 - [Documentation](https://mariadb.com/kb/en/library/documentation/)
 
-#### Installation
+#### Installation (In admin)
 ```bash
-# Execute in admin!
-
+# Create windows service
 C:/server/mariadb/bin/mysql_install_db.exe --datadir=C:/server/mariadb/data --service=MariaDB
+
+# Start and stop the new service
+net start MariaDB
+net stop MariaDB
 ```
-
-- MariaDB service is create!
-    - Start (admin): `net start MariaDB`
-    - Stop (admin): `net stop MariaDB`
-
-- For remove MariaDB a service (In admin)
-    - `C:/server/mariadb/bin/mysqld.exe --remove`
 
 #### Configuration
 - Edit:
@@ -413,48 +355,51 @@ C:/server/mariadb/bin/mysql_install_db.exe --datadir=C:/server/mariadb/data --se
     extension=pdo_mysql
     ```
 
-<br>
-
-- Default login: **root**/<no_password>
-- For set password or unset password ?
+#### Various
+- Default login: **root**
+- Default password: **EMPTY**
+- For set or unset password?
 	1. Start *mariadb* server **in admin** in safe mode.
 		- `C:/server/bin/start-mariadb-safe-mode.bat`
-	2. Run commands
+	1. Run commands:
 		- For set password:
-
 			```bash
 			mysql -u root -p
-
+			```
+			```sql
 			USE mysql;
 			UPDATE user SET `password` = PASSWORD('YOUR_PASSWORD') WHERE `User` = 'root';
 			FLUSH PRIVILEGES;
 			quit;
 			```
 		- For unset password:
-			- `UPDATE user SET password = '' WHERE User = 'root';`
-	3. Stop ant restart *mariadb*.
+			```sql
+			UPDATE user SET password = '' WHERE User = 'root';
+			```
+	1. Restart MariaDB
 
 #### Debug?
-
 ```bash
 C:/server/mariadb/bin/mysqld.exe --defaults-file=C:/server/mariadb/data/my.ini --log-error=C:/server/var/log/mariadb/ --console
+```
+
+#### Remove service (In admin)
+```bash
+C:/server/mariadb/bin/mysqld.exe --remove
 ```
 
 <br>
 
 ### phpMyAdmin
-
 > **phpMyAdmin-4.X.X-all-languages.zip** in: `C:\server\phpmyadmin`.
 
 - Creation of a symbolic link
 	- Execute (In **cmd** in **Administrator**): `mklink /D C:\server\www\phpmyadmin C:\server\phpmyadmin`
 
 #### Configuration (Automatique)
-
 - [Using Setup script](https://docs.phpmyadmin.net/en/latest/setup.html#using-setup-script)
 
 #### Configuration (Manual)
-
 - Execute:
 	- `cp C:/server/phpmyadmin/config.sample.inc.php C:/server/phpmyadmin/config.inc.php`
 
@@ -554,126 +499,81 @@ C:/server/mariadb/bin/mysqld.exe --defaults-file=C:/server/mariadb/data/my.ini -
     <br>
 
     - Run: `C:/server/mariadb/bin/mysql.exe -u root < C:/server/phpmyadmin/sql/create_tables.sql`
-
 	- Create a new **user/password** in phpMyAdmin for **phpMyAdmin configuration storage** with full privileges (without **GRANT** access) for the **phpmyadmin** database.
 		- Update `$cfg['Servers'][$i]['controluser']` and `$cfg['Servers'][$i]['controlpass']` variables in `config.inc.php`
-
 	- Delete DB (optional): **test**
-	
+
 	<br>
-	
+
 	- Optimisation
 	    - http://localhost/phpmyadmin/server_status_advisor.php
 
 <br>
 
-## Start & Stop all servers
+### PostgreSQL
+> **postgresql-11.X-X-windows-x64-binaries.zip** in: `C:\server\pgsql`.
 
+- [Documentation](https://www.postgresql.org/docs/11/index.html)
+
+#### Installation (In admin)
+```bash
+# Create data DB folder
+mkdir C:\server\pgsql\data
+
+# Place the cuseur
+cd C:\server\pgsql\bin
+initdb.exe -U postgres -A password -E utf8 -W -D ../data
+
+# Create Windows service
+cd C:\server\pgsql\bin
+pg_ctl register -D C:/server/pgsql/data -N PostgreSQL
+
+# Start and stop PostgreSQL server
+net start PostgreSQL
+net stop PostgreSQL
+```
+
+#### Debug?
+```bash
+# Place the cuseur
+cd C:\server\pgsql\bin
+
+# Start server
+pg_ctl -D ../data -l trace_file start
+
+# Stop server
+pg_ctl -D ../data -l trace_file stop
+```
+
+#### Remove service (In admin)
+```bash
+pg_ctl unregister -N PostgreSQL
+```
+
+<br>
+
+## Start & Stop all servers
 - Start (In admin): `C:/server/_start.bat`
 - Stop (In admin): `C:/server/_stop.bat`
 
 <br>
 
-## In production environment
-
-#### Nginx
-
-- Edit:
-    ```nginx
-    # C:\server\nginx\conf\nginx.conf
-    
-    http {
-        server_tokens off;
-    }
-    ```
-    
-    - Disabled `access_log` in your vhosts
-
-#### PHP
-
-- Edit:
-    ```ini
-    ; C:\server\php\php.ini
-    
-    [PHP]
-    expose_php = Off
-    error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
-    display_errors = Off
-    display_startup_errors = Off
-    
-    [mysqlnd]
-    mysqlnd.collect_statistics = Off
-    mysqlnd.collect_memory_statistics = Off
-    
-    [Assertion]
-    zend.assertions = -1  
-	```
-
-<br>
-
-## Active HTTPS (optional)
-
-1. Create `ssl` folder in nginx folder and generate keys:
-2. Execute:
-    ```bash
-    mkdir C:\server\nginx\ssl
-
-    openssl req -x509 -sha256 -nodes -newkey rsa:2048 -days 365 -keyout localhost.key -out localhost.crt
-  
-    openssl dhparam 2048 > dhparam.pem
-    ```
-3. Add new virtual host config in `C:\server\nginx\conf\conf.d\app.localhost.conf` file:
-    ```
-    # HTTPS Server
-    server {
-        listen               443 ssl http2 default_server;
-        listen               [::]:443 ssl http2 default_server;
-        server_name          app.localhost;
-        ssl                  on;
-        ssl_certificate      c:/server/nginx/ssl/localhost.crt;
-        ssl_certificate_key  c:/server/nginx/ssl/localhost.key;
-    
-        # Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
-    	ssl_dhparam c:/server/nginx/ssl/dhparam.pem;
-    
-    	# secure settings (A+ at SSL Labs ssltest at time of writing)
-    	# see https://wiki.mozilla.org/Security/Server_Side_TLS#Nginx
-    	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    	ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-CAMELLIA256-SHA:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-SEED-SHA:DHE-RSA-CAMELLIA128-SHA:HIGH:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS';
-    	ssl_prefer_server_ciphers on;
-    
-        # ...
-    }
-    ```
-4. Add new redirect in `C:\Windows\System32\drivers\etc\hosts` file:
-    ```
-    127.0.0.1       app.localhost
-    ::1             app.localhost
-    ```
-5. Open: https://app.localhost/
-
-<br>
-
 ## For future update ?
-
 1. Execute:
-
     ```bash
     cd C:\server
     git pull
     ```
-
-2. Comparison between your config and the README.md doc
+1. Comparison between your config and the README.md doc
 
 <br>
 
 ## Uninstall
-
 1. Backup your DB(s) and project(s)
-2. Kill all services
-3. Remove entry your PATH system variable:
+1. Kill all services
+1. Remove entry your PATH system variable:
     - C:\server\mariadb\bin
     - C:\server\nginx
     - C:\server\php
-4. Remove MariaDB service (in admin): `C:/server/mariadb/bin/mysqld.exe --remove`
-5. Restart your system.
+1. Remove MariaDB service (in admin): `C:/server/mariadb/bin/mysqld.exe --remove`
+1. Restart your system.
