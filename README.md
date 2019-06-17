@@ -33,7 +33,7 @@ git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 		- The VC15 builds require to have the Visual C++ Redistributable for [Visual Studio 2017 x64](https://aka.ms/vs/15/release/VC_redist.x64.exe)
 	- **C:\server\mariadb**: [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
 	- **C:\server\phpmyadmin**: [phpMyAdmin](https://www.phpmyadmin.net/downloads)
-	- **C:\server\pgsql**: [phpMyAdmin](https://www.enterprisedb.com/download-postgresql-binaries)
+	- **C:\server\pgsql**: [PostgreSQL](https://www.enterprisedb.com/download-postgresql-binaries)
 
 <br>
 
