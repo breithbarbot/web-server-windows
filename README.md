@@ -41,6 +41,7 @@ git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 ### General
 1. Update your PATH system variable
     - `C:\server\mariadb\bin`
+    - `C:\server\pgsql\bin`
     - `C:\server\nginx`
     - `C:\server\php`
 
@@ -185,6 +186,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     [PHP]
     realpath_cache_size = 10M
     realpath_cache_ttl = 300
+    memory_limit = 512M
     error_log = "C:\server\var\log\php_errors.log"
     post_max_size = 500M
     include_path = ".;C:\server\php\pear"
@@ -532,6 +534,17 @@ pg_ctl register -D C:/server/pgsql/data -N PostgreSQL
 net start PostgreSQL
 net stop PostgreSQL
 ```
+
+#### Configuration
+
+- Edit:
+    ```ini
+    ; C:\server\php\php.ini
+    
+    [PHP]
+    extension=pdo_pgsql
+    extension=pgsql
+    ```
 
 #### Debug?
 ```bash
