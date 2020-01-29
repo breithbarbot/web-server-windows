@@ -3,17 +3,18 @@
 
 <br>
 
-- Nginx
-- PHP (Recommanded PHP >= 7.3.X)
+- Nginx 1
+- PHP 7
 	- cURL
 	- OPCache
 	- APCu
 	- Sendmail
 	- Composer
-- MariaDB
-- phpMyAdmin (Recommanded phpMyAdmin >= 4.8.X)
-	- With config for *phpMyAdmin configuration storage*
-- PostgreSQL + pgAdmin 4
+- MariaDB 10
+    - phpMyAdmin 5
+        - With config for *phpMyAdmin configuration storage*
+- PostgreSQL 11
+    - pgAdmin 4
 
 <br>
 
@@ -29,10 +30,10 @@ git clone https://gitlab.com/breithbarbot/web-server-windows.git server
 ## Download
 - Download the source files and extract to the each respective folder
 	- **C:\server\nginx**: [Nginx](https://nginx.org/en/download.html)
-	- **C:\server\php**: [[Recommanded PHP 7.3.X] PHP (x64 Thread Safe)](https://windows.php.net/download)
+	- **C:\server\php**: [[Minimum recommended version 7.4.2] PHP (x64 Thread Safe)](https://windows.php.net/download)
 		- The VC15 builds require to have the Visual C++ Redistributable for [Visual Studio 2017 x64](https://aka.ms/vs/15/release/VC_redist.x64.exe)
 	- **C:\server\mariadb**: [MariaDB (ZIP file - Windows x86_64)](https://downloads.mariadb.org)
-	- **C:\server\phpmyadmin**: [phpMyAdmin](https://www.phpmyadmin.net/downloads)
+	- **C:\server\phpmyadmin**: [[Minimum recommended version 5.0.1] phpMyAdmin](https://www.phpmyadmin.net/downloads)
 	- **C:\server\pgsql**: [PostgreSQL](https://www.enterprisedb.com/download-postgresql-binaries)
 
 <br>
@@ -188,18 +189,18 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     realpath_cache_ttl = 300
     memory_limit = 512M
     error_log = "C:\server\var\log\php_errors.log"
-    post_max_size = 500M
+    post_max_size = 50M
     include_path = ".;C:\server\php\pear"
     extension_dir = "ext"
     sys_temp_dir = "C:\server\var\tmp"
     upload_tmp_dir = "C:\server\var\tmp"
-    upload_max_filesize = 500M
+    upload_max_filesize = 10M
     extension=bz2
     extension=curl
     extension=fileinfo
+    extension=gd2
     extension=intl
     extension=mbstring
-    extension=exif
     
     [Date]
     date.timezone = Europe/Paris
@@ -249,7 +250,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     ```
 
 #### APCu (Optional)
-- Download [7.3 Thread Safe (TS) x64](https://pecl.php.net/package/APCu)
+- Download [7.4 Thread Safe (TS) x64](https://pecl.php.net/package/APCu)
 - Save file in: `C:\server\php\ext\php_apcu.dll`
 - Edit at the end:
     ```ini
@@ -260,7 +261,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
     apc.enabled=1
     apc.enable_cli=1
     apc.shm_size=64M
-    apc.ttl=3600  
+    apc.ttl=3600
     ```
 
 #### Sendmail (Optional)
@@ -282,7 +283,7 @@ Execute: `cp C:\server\php\php.ini-development C:\server\php\php.ini`
 		- Comment temporarily: `zend_extension=opcache` in *C:\server\php\php.ini*, run Composer install and after, uncomment.
 
 #### Xdebug (Optional)
-- Download [PHP 7.3 VC15 TS (64 bit)](https://xdebug.org/download.php)
+- Download [PHP 7.4 VC15 TS (64 bit)](https://xdebug.org/download.php)
 - Save file in: `C:\server\php\ext\php_xdebug.dll`
 - Add at the end:
     ```ini
@@ -393,7 +394,7 @@ C:/server/mariadb/bin/mysqld.exe --remove
 <br>
 
 ### phpMyAdmin
-> **phpMyAdmin-4.X.X-all-languages.zip** in: `C:\server\phpmyadmin`.
+> **phpMyAdmin-5.X.X-all-languages.zip** in: `C:\server\phpmyadmin`.
 
 - Creation of a symbolic link
 	- Execute (In **cmd** in **Administrator**): `mklink /D C:\server\www\phpmyadmin C:\server\phpmyadmin`
