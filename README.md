@@ -1,20 +1,20 @@
 # Web Server for Windows
-> A simple web server for windows with Nginx, PHP, MariaDB and phpMyAdmin.
+> A simple web server for windows with Nginx, PHP, MariaDB/PostgreSQL and phpMyAdmin
 
 <br>
 
-- Nginx 1
-- PHP 7
+- Nginx **1.xx**
+- PHP **7.x**
 	- cURL
 	- OPCache
 	- APCu
 	- Sendmail
 	- Composer
-- MariaDB 10
-    - phpMyAdmin 5
+- MariaDB **10.x**
+    - phpMyAdmin **5.x**
         - With config for *phpMyAdmin configuration storage*
-- PostgreSQL 11
-    - pgAdmin 4
+- PostgreSQL **12.x**
+    - pgAdmin **4.xx**
 
 <br>
 
